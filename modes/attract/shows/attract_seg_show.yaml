@@ -1,0 +1,50 @@
+#show_version=5
+# STAR WARS Attract Mode
+
+- duration: 4
+  segment_displays:
+    upperseg:
+      flashing: all
+      color: 00acf0
+      text: "PRESS  "
+
+    lowerseg:
+      flashing: all
+      color: 00acf0
+      text: "  START"
+
+- duration: 4
+  segment_displays:
+    upperseg:
+      flashing: off
+      color: 00acf0
+      text: "{machine.player1_score:,d}"
+
+    lowerseg:
+      flashing: off
+      color: 00acf0
+      text:  "{machine.player2_score:,d}"
+
+- duration: 2
+  segment_displays:
+    upperseg:
+      flashing: all
+      color: 00acf0
+      text: "PRESS  "
+
+    lowerseg:
+      flashing: all
+      color: 00acf0
+      text: "  START"
+
+- duration: 4
+  segment_displays:
+    upperseg:
+      flashing: off
+      color: 00acf0
+      text: "HS  {machine.score1_name}"
+
+    lowerseg:
+      flashing: off
+      color: 00acf0
+      text:  "{machine.score1_value:,d}"

@@ -1,0 +1,83 @@
+#config_version=5
+# STAR WARS
+#
+
+mode:
+    start_events: 
+        - ball_starting
+
+    priority: 100
+
+#############################################################
+# SHOT GROUPS
+#############################################################
+shot_groups:
+    pops:
+        shots:
+            - pop_1
+            - pop_2
+
+#######################################################################
+# COUNTERS                         
+#######################################################################
+
+counters:
+    super_droid:                        #### track how many times pops are hit
+        count_events:                   #### to start SUPER DROID pops
+            - pops_hit
+        starting_count: 0
+        count_complete_value: 25
+        direction: up
+        persist_state: true
+        reset_on_complete: false
+        disable_on_complete: true
+        restart_events: ball_started{device.counters.super_droid.completed}
+
+
+
+#############################################################
+# SHOW PLAYER:  play shows on events
+#############################################################
+
+show_player:
+
+    logicblock_super_droid_complete{current_player.number==1}:
+        show_sd_one:
+            speed: .5
+            loops: 0
+
+    logicblock_super_droid_complete{current_player.number==2}: 
+        show_sd_two:
+            speed: .5
+            loops: 0
+
+#############################################################
+# SHOWS
+#############################################################
+
+shows:
+
+    show_sd_one:
+    - time: 0
+      segment_displays:
+        lowerseg:
+            color: 00acf0
+            text: " "
+            priority: 1000
+            transition:
+                type: push
+                direction: left
+                text: "SUPER DROID ACTIVATED"
+
+
+    show_sd_two:
+    - time: 0
+      segment_displays:
+        upperseg:
+            color: 00acf0
+            text: " "
+            priority: 1000
+            transition:
+                type: push
+                direction: left
+                text: "SUPER DROID ACTIVATED"

@@ -1,0 +1,80 @@
+#config_version=5
+# STAR WARS
+
+mode:
+    start_events:  
+        - multi_player_ball_started{device.shot_groups.storm_bank.common_state == None}
+    stop_events:
+        - timer_dt_bank_restore_complete
+
+    priority: 5000
+
+#############################################################
+# QUEUE RELAY PLAYER  tell ball eject to wait until done restoring drop target state
+#############################################################
+
+queue_relay_player:      
+    balldevice_bd_trough_ball_eject_attempt:     
+        post: start_dt_restore                      ## tell timer to start
+        wait_for: timer_dt_bank_restore_complete  
+
+#############################################################
+# TIMERS  run through the drop targets every 200ms so they don't all fire at once
+#############################################################
+
+timers:
+    dt_bank_restore:             
+        start_value: 5          
+        end_value: 0                                        
+        direction: down                             
+        tick_interval: 200ms                        
+        control_events:
+            - action: start 
+              event: start_dt_restore
+
+#############################################################################
+# EVENT PLAYER:     knock_ events trigger knockdown_events on the drop_targets
+#############################################################################
+
+event_player:  
+    
+    timer_dt_bank_restore_tick{ticks == 5 and device.shots.drop_5.state == 1}:
+        knock_5                                                                         
+    timer_dt_bank_restore_tick{ticks == 4 and device.shots.drop_4.state == 1}:
+        knock_4
+    timer_dt_bank_restore_tick{ticks == 3 and device.shots.drop_3.state == 1}:
+        knock_3
+    timer_dt_bank_restore_tick{ticks == 2 and device.shots.drop_2.state == 1}:
+        knock_2
+    timer_dt_bank_restore_tick{ticks == 1 and device.shots.drop_1.state == 1}:
+        knock_1
+
+#############################################################
+# SHOTS:       shots just for blocking scoring while setting state
+#############################################################
+shots:    
+    r_drop_1:
+        switch: s_rescue_1
+        profile: p_block
+    r_drop_2:
+        switch: s_rescue_2
+        profile: p_block
+    r_drop_3:
+        switch: s_rescue_3
+        profile: p_block
+    r_drop_4:
+        switch: s_rescue_4
+        profile: p_block
+    r_drop_5:
+        switch: s_rescue_5
+        profile: p_block
+
+#############################################################
+# SHOT PROFILES         profile to block lower mode events
+#############################################################
+
+shot_profiles:
+    p_block:
+        block: true   #DON'T SCORE WHEN RESTORING DROP STATE
+        states:
+            - name: restore1

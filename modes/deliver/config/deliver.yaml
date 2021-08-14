@@ -1,0 +1,64 @@
+#config_version=5
+# STAR WARS
+#
+
+mode:
+    start_events: 
+        - ball_starting
+
+    priority: 100
+
+
+#############################################################
+#  SHOTS
+#############################################################    
+
+shots:
+
+    plans_1:
+        switch: s_plans_1
+        show_tokens:
+            led: l_plans_1
+        profile: p_onoff
+    plans_2:
+        switch: s_plans_2
+        show_tokens:
+            led: l_plans_2
+        profile: p_onoff
+    plans_3:
+        switch: s_plans_3
+        show_tokens:
+            led: l_plans_3
+        profile: p_onoff
+
+
+#############################################################
+# SHOT GROUPS
+#############################################################
+
+shot_groups:
+
+    plans:
+        shots:
+            - plans_1
+            - plans_2
+            - plans_3
+        enable_events:
+            - ball_started
+        restart_events:
+            - reset_missions
+        rotate_left_events: s_left_flipper_active{current_player.mission_count==1}
+        rotate_right_events: s_right_flipper_active{current_player.mission_count==0}
+
+    
+#############################################################
+# EVENT PLAYER:
+#############################################################
+
+event_player:
+    plans_lit_hit:
+        score_2hund
+    plans_unlit_hit:
+        score_hund
+    plans_lit_complete{device.multiballs.droid_mball.balls_added_live > 0}:      #super jackpot during Droid MB
+        super_jackpot:

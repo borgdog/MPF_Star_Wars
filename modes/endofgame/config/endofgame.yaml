@@ -1,0 +1,51 @@
+#config_version=5
+# STAR WARS
+
+mode:
+    priority: 500
+    start_events: game_ending     #### only start counting if you have bonus
+    game_mode: false
+    stop_events: timer_endofgame_complete              
+    use_wait_queue: true
+
+ 
+
+#############################################################
+# TIMERS  
+#############################################################
+
+timers:
+    endofgame:                   
+        start_value: 5          
+        end_value: 0                                        
+        direction: down                             
+        tick_interval: 1s                        
+        start_running: True      
+
+#############################################################
+# SHOW PLAYER:  play shows on events
+#############################################################
+
+show_player:
+    mode_endofgame_started:
+        deathmarch:
+            loops: 0
+
+
+#############################################################
+# SEGMENT PLAYER:  score displays
+#############################################################
+
+segment_display_player:
+  mode_endofgame_started: 
+    upperseg:
+      flashing: off
+      color: 00acf0
+      text: "{players[0].score:0>2,}"
+    bipseg:
+      text: ""
+  mode_endofgame_started{game.num_players==2}:
+    lowerseg:
+      flashing: off
+      color: 00acf0
+      text:  "{players[1].score:0>2,}"

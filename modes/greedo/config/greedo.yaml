@@ -1,0 +1,114 @@
+#config_version=5
+# STAR WARS
+
+mode:
+    start_events: 
+        - ball_starting
+       
+    priority: 200
+
+
+#############################################################
+# STATE MACHINE   
+#############################################################      
+
+state_machines:
+    greedomb:
+        persist_state: true
+        starting_state: start
+
+        states:
+            start:
+                label: greedo mb ready
+                show_when_active:
+                    show: off
+                    show_tokens: 
+                        lights: greedolights
+            
+            success:
+                label: shot 4 times
+                events_when_started: start_greedo_mb
+                show_when_active:
+                    show: on
+                    show_tokens: 
+                        lights: greedolights
+
+            shotfirstonce:
+                label: greedo shot once
+                show_when_active:
+                    show: on
+                    show_tokens: 
+                        lights: greedolights1
+
+            shotfirsttwice:
+                label: greedo shot twice
+                show_when_active:
+                    show: on
+                    show_tokens: 
+                        lights: greedolights2
+            
+            shotfirstthrice:
+                label: greedo shot three times
+                show_when_active:
+                    show: on
+                    show_tokens: 
+                        lights: greedolights3
+
+        transitions:
+            - source: start
+              target: shotfirstonce
+              events: greedo_drop_hit
+
+            - source: shotfirstonce
+              target: shotfirsttwice
+              events: greedo_drop_hit             
+
+            - source: shotfirsttwice
+              target: shotfirstthrice
+              events: greedo_drop_hit
+
+            - source: shotfirstthrice
+              target: success
+              events: greedo_drop_hit
+            
+            - source: success
+              target: start
+              events: ball_started
+
+#############################################################
+# SHOWS
+#############################################################
+
+shows:
+  
+    greedo_ball_save:
+        - duration: .25
+          lights:
+              l_shootagain: f5f5f5
+        - duration: .25
+          lights:
+              l_shootagain: off
+
+    
+#############################################################
+# MULTIBALL the whole point of this mode
+#############################################################  
+
+multiballs:
+    greedo_insta_mb:
+        ball_count: 1
+        ball_count_type: add
+        shoot_again: 10s
+        start_events: start_greedo_mb
+
+#############################################################
+# SHOW PLAYER:  set lights on events
+#############################################################
+
+show_player:
+    multiball_greedo_insta_mb_started:
+        greedo_ball_save:
+            action: play
+    multiball_greedo_insta_mb_shoot_again_ended:
+        greedo_ball_save:
+            action: stop

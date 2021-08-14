@@ -1,0 +1,118 @@
+#config_version=5
+# STAR WARS
+
+switches:
+    s_plans_1:
+        number: 1
+    s_plans_2:
+        number: 2
+    s_plans_3:
+        number: 3
+    s_greedo:
+        number: 4
+    s_ds_lock:
+        number: 5
+        tags: skill_cancel
+    s_ds_target:
+        number: 6
+        tags: skill_cancel
+    s_ds_loop:
+        number: 7
+        tags: skill_cancel
+    s_spinner:
+        number: 8
+        tags: skill_cancel
+    s_advance_1:
+        number: 9
+        tags: skill_cancel
+    s_advance_2:
+        number: 10
+        tags: skill_cancel
+    s_advance_3:
+        number: 11
+        tags: skill_cancel
+    s_advance_4:
+        number: 12
+        tags: skill_cancel
+    s_advance_5:
+        number: 13
+        tags: skill_cancel
+    s_advance_6:
+        number: 14
+        tags: skill_cancel
+    s_rescue_1:
+        number: 15
+        tags: skill_cancel
+    s_rescue_2:
+        number: 16
+        tags: skill_cancel
+    s_rescue_3:
+        number: 17
+        tags: skill_cancel
+    s_rescue_4:
+        number: 18
+        tags: skill_cancel
+    s_rescue_5:
+        number: 19
+        tags: skill_cancel
+    s_leia_1:
+        number: 20
+        tags: skill_cancel
+    s_leia_2:
+        number: 21
+        tags: skill_cancel
+    s_leia_3:
+        number: 22
+        tags: skill_cancel
+    s_leia_4:
+        number: 23
+        tags: skill_cancel
+    s_l_outlane:
+        number: 24
+        tags: skill_cancel
+    s_l_inlane:
+        number: 25
+        tags: skill_cancel
+    s_r_outlane:
+        number: 26
+        tags: skill_cancel
+    s_r_inlane:
+        number: 27
+        tags: skill_cancel
+    s_pop_1:
+        number: 28
+        tags: skill_cancel
+    s_pop_2:
+        number: 29
+        tags: skill_cancel
+    s_droid_lock:
+        number: 30
+        tags: skill_cancel
+    s_dingwalls:
+        number: 31
+        tags: skill_cancel
+    s_left_sling:
+        number: 32
+        tags: skill_cancel
+    s_shooter:
+        number: 33
+    s_trough_1:
+        number: 34
+    s_trough_2:
+        number: 35
+    s_trough_3:
+        number: 36
+    s_trough_4:
+        number: 37
+    s_jam:
+        number: 38
+    s_left_flipper:
+        number: 39
+    s_start:
+        number: 42
+        tags: start
+    s_tilt_bob:
+        number: 43
+        tags: tilt_warning
+    s_right_flipper:
+        number: 44

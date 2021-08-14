@@ -1,0 +1,75 @@
+#config_version=5
+# STAR WARS
+#
+
+mode:
+    start_events: 
+        - ball_starting
+
+    priority: 100
+
+
+#######################################################################
+# COUNTERS                         
+#######################################################################
+
+counters:
+    super_spins:                        #### track how many times spinner hit
+        count_events:                   #### to start SUPER SPINNER
+            - spinner_left_spinner_hit
+        starting_count: 0
+        count_complete_value: 200
+        direction: up
+        persist_state: true
+        reset_on_complete: false
+        disable_on_complete: true
+        restart_events: ball_started
+
+
+
+#############################################################
+# SHOW PLAYER:  play shows on events
+#############################################################
+
+show_player:
+
+    logicblock_super_spins_complete{current_player.number==1}:
+        show_ss_one:
+            speed: .5
+            loops: 0
+
+    logicblock_super_spins_complete{current_player.number==2}: 
+        show_ss_two:
+            speed: .5
+            loops: 0
+
+#############################################################
+# SHOWS
+#############################################################
+
+shows:
+
+    show_ss_one:
+    - time: 0
+      segment_displays:
+        lowerseg:
+            color: 00acf0
+            text: " "
+            priority: 1000
+            transition:
+                type: push
+                direction: left
+                text: "SUPER SPINNER ACTIVATED"
+
+
+    show_ss_two:
+    - time: 0
+      segment_displays:
+        upperseg:
+            color: 00acf0
+            text: " "
+            priority: 1000
+            transition:
+                type: push
+                direction: left
+                text: "SUPER SPINNER ACTIVATED"

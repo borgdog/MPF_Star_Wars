@@ -1,0 +1,73 @@
+#config_version=5
+# STAR WARS
+
+mode:
+    start_events: 
+        - ball_starting
+       
+    priority: 100
+
+#############################################################
+# SEQUENCE SHOTS  LOOPS!!!! 
+#############################################################
+
+sequence_shots:    
+    left_orbit:
+        switch_sequence: 
+            - s_ds_loop 
+            - s_advance_6
+        sequence_timeout: 3s
+    right_orbit:
+        switch_sequence:
+            - s_advance_6 
+            - s_ds_loop 
+        sequence_timeout: 3s
+
+#############################################################
+# COUNTERS track left orbits for Escape mission
+#############################################################  
+
+counters:
+    escape_count:
+        count_events: left_orbit_hit
+        starting_count: 0
+        count_complete_value: 3
+        direction: up
+        restart_events: reset_missions
+        persist_state: true
+        disable_on_complete: true
+        reset_on_complete: false
+
+
+#############################################################
+# EVENT PLAYER:
+#############################################################
+
+event_player:
+    left_orbit_hit{device.multiballs.leia_insta_mb.balls_added_live == 0 and device.multiballs.rescue_insta_mb.balls_added_live == 0 and device.multiballs.deathstar_mball.balls_added_live == 0 and device.multiballs.starwars_mball.balls_added_live == 0}:
+        score_thou: 
+    right_orbit_hit{device.multiballs.greedo_insta_mb.balls_added_live == 0 and device.multiballs.droid_mball.balls_added_live == 0 and device.multiballs.starwars_mball.balls_added_live == 0}:
+        score_thou: 
+    left_orbit_hit{device.multiballs.leia_insta_mb.balls_added_live > 0 or device.multiballs.rescue_insta_mb.balls_added_live > 0 or device.multiballs.deathstar_mball.balls_added_live > 0 or device.multiballs.starwars_mball.balls_added_live > 0}:      #jackpot during LEIA, Rescue, deathstar or starwars MB
+        jackpot:
+    right_orbit_hit{device.multiballs.greedo_insta_mb.balls_added_live > 0 or device.multiballs.droid_mball.balls_added_live > 0 or device.multiballs.starwars_mball.balls_added_live > 0}:        #jackpot during droid, starwars or greedo MB
+        jackpot:
+    logicblock_escape_count_complete{device.multiballs.deathstar_mball.balls_added_live > 0}:       #superjackpot during deathstar multiball
+        super_jackpot:
+
+#############################################################
+# LIGHT PLAYER:  set lights on events
+#############################################################
+
+light_player:
+    logicblock_escape_count_updated{value==1}: 
+        l_escape_1: on
+    logicblock_escape_count_updated{value==2}: 
+        l_escape_2: on
+    logicblock_escape_count_updated{value==3}: 
+        l_escape_3: on
+
+    reset_missions:
+        l_escape_1: off
+        l_escape_2: off
+        l_escape_3: off

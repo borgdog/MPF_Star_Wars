@@ -1,0 +1,96 @@
+#config_version=5
+# STAR WARS
+
+mode:
+    start_events: 
+        - left_inlane_hit
+    stop_events:
+        - timer_greedo_timer_complete
+    priority: 300
+
+#############################################################
+# TIMERS            to control greedo drop target
+#############################################################
+
+timers:
+    greedo_timer:
+        start_value: 0
+        end_value: 2
+        direction: up
+        control_events:
+            - action: start
+              event: mode_greedotimer_started
+
+
+#############################################################
+# SHOTS
+#############################################################
+shots:    
+    greedo_drop:
+        switch: s_greedo
+
+
+#############################################################
+# EVENT PLAYER:
+#############################################################
+
+event_player:
+    greedo_drop_hit{device.multiballs.greedo_insta_mb.balls_added_live == 0}:
+        score_thou:
+    greedo_drop_hit{device.multiballs.greedo_insta_mb.balls_added_live > 0}:            #super jackpot during Greedo MB
+        super_jackpot:
+
+#############################################################
+# SHOW PLAYER:  
+#############################################################
+
+show_player:
+    mode_greedotimer_started: greedo_attract
+
+
+#############################################################
+# SHOWS
+#############################################################
+
+shows:
+
+    greedo_attract:
+    - duration: .2
+      lights:
+          l_greedo_1: f5f5f5
+    - duration: .2
+      lights:
+          l_greedo_1: off
+          l_greedo_2: f5f5f5
+    - duration: .2
+      lights:
+          l_greedo_2: off
+          l_greedo_3: f5f5f5
+    - duration: .2
+      lights:
+          l_greedo_3: off
+          l_greedo_1: f5f5f5
+    - duration: .2
+      lights:
+          l_greedo_1: off
+          l_greedo_2: f5f5f5
+    - duration: .2
+      lights:
+          l_greedo_2: off
+          l_greedo_3: f5f5f5
+    - duration: .2
+      lights:
+          l_greedo_3: off
+          l_greedo_1: f5f5f5
+    - duration: .2
+      lights:
+          l_greedo_1: off
+          l_greedo_2: f5f5f5
+    - duration: .2
+      lights:
+          l_greedo_2: off
+          l_greedo_3: f5f5f5
+    - duration: .2
+      lights:
+          l_greedo_3: off
+

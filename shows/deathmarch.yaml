@@ -1,0 +1,28 @@
+#show_version=5
+- time: 5ms
+  coils:
+    c_chime_2: pulse
+- time: 350ms
+  coils:
+    c_chime_2: pulse
+- time: 700ms
+  coils:
+    c_chime_2: pulse
+- time: 1050ms
+  coils:
+    c_chime_1: pulse
+- time: 1225ms
+  coils:
+    c_chime_3: pulse
+- time: 1400ms
+  coils:
+    c_chime_2: pulse
+- time: 1700ms
+  coils:
+    c_chime_1: pulse
+- time: 1875ms
+  coils:
+    c_chime_3: pulse
+- time: 2050ms
+  coils:
+    c_chime_2: pulse

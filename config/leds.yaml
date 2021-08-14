@@ -1,0 +1,247 @@
+#config_version=5
+# STAR WARS
+
+lights:
+
+# PLAYFIELD INSERTS 
+    l_plans_1:
+        # type: grb
+        number: 1
+        default_on_color: f5f5f5
+    l_plans_2:
+        # type: grb
+        number: 2
+        default_on_color: f5f5f5
+    l_plans_3:
+        # type: grb
+        number: 3
+        default_on_color: f5f5f5
+    l_greedo_1:
+        # type: grb
+        number: 4
+        default_on_color: f5f5f5
+        tags: greedolights, greedolights1, greedolights2, greedolights3
+    l_greedo_2:
+        # type: grb
+        number: 5
+        default_on_color: f5f5f5
+        tags: greedolights, greedolights2, greedolights3
+    l_greedo_3:
+        # type: grb
+        number: 6
+        default_on_color: f5f5f5
+        tags: greedolights, greedolights3
+    l_advance_1:
+        # type: grb
+        number: 7
+        default_on_color: f5f5f5
+    l_advance_2:
+        # type: grb
+        number: 8
+        default_on_color: f5f5f5
+    l_advance_3:
+        # type: grb
+        number: 9
+        default_on_color: f5f5f5
+    l_advance_4:
+        # type: grb
+        number: 10
+        default_on_color: f5f5f5
+    l_advance_5:
+        # type: grb
+        number: 11
+        default_on_color: f5f5f5
+    l_advance_6:
+        # type: grb
+        number: 12
+        default_on_color: f5f5f5
+    l_escape_1:
+        # type: grb
+        number: 13
+        default_on_color: f5f5f5
+    l_escape_2:
+        # type: grb
+        number: 14
+        default_on_color: f5f5f5
+    l_escape_3:
+        # type: grb
+        number: 15
+        default_on_color: f5f5f5
+    l_tractor_beam:
+        # type: grb
+        number: 16
+        default_on_color: f5f5f5
+    l_spinner:
+        # type: grb
+        number: 17
+        default_on_color: f5f5f5
+    l_rescue_1:
+        # type: grb
+        number: 18
+        default_on_color: f5f5f5
+    l_rescue_2:
+        # type: grb
+        number: 19
+        default_on_color: f5f5f5
+    l_rescue_3:
+        # type: grb
+        number: 20
+        default_on_color: f5f5f5
+    l_rescue_4:
+        # type: grb
+        number: 21
+        default_on_color: f5f5f5
+    l_rescue_5:
+        # type: grb
+        number: 22
+        default_on_color: f5f5f5
+    l_leia_1:
+        # type: grb
+        number: 23
+        default_on_color: f5f5f5
+    l_leia_2:
+        # type: grb
+        number: 24
+        default_on_color: f5f5f5
+    l_leia_3:
+        # type: grb
+        number: 25
+        default_on_color: f5f5f5
+    l_leia_4:
+        # type: grb
+        number: 26
+        default_on_color: f5f5f5
+    l_train_1:
+        # type: grb
+        number: 27
+        default_on_color: f5f5f5
+    l_train_2:
+        # type: grb
+        number: 28
+        default_on_color: f5f5f5
+    l_train_3:
+        # type: grb
+        number: 29
+        default_on_color: f5f5f5
+    l_train_4:
+        # type: grb
+        number: 30
+        default_on_color: f5f5f5
+    l_train_5:
+        # type: grb
+        number: 31
+        default_on_color: f5f5f5
+    l_train_6:
+        # type: grb
+        number: 32
+        default_on_color: f5f5f5
+
+    l_droid_lock:
+        # type: grb
+        number: 33
+        default_on_color: f5f5f5
+    l_l_outlane:
+        # type: grb
+        number: 34
+        default_on_color: f5f5f5
+    l_l_inlane:
+        # type: grb
+        number: 35
+        default_on_color: f5f5f5
+    l_r_outlane:
+        # type: grb
+        number: 36
+        default_on_color: f5f5f5
+    l_r_inlane:
+        # type: grb
+        number: 37
+        default_on_color: f5f5f5
+    l_bonus_2x:
+        # type: grb
+        number: 38
+        default_on_color: f5f5f5
+    l_bonus_3x:
+        # type: grb
+        number: 39
+        default_on_color: f5f5f5
+    l_bonus_4x:
+        # type: grb
+        number: 40
+        default_on_color: f5f5f5
+    l_bonus_5x:
+        # type: grb
+        number: 41
+        default_on_color: f5f5f5
+    l_bonus_1:
+        # type: grb
+        number: 42
+        default_on_color: f5f5f5
+    l_bonus_2:
+        # type: grb
+        number: 43
+        default_on_color: f5f5f5
+    l_bonus_3:
+        # type: grb
+        number: 44
+        default_on_color: f5f5f5
+    l_bonus_4:
+        # type: grb
+        number: 45
+        default_on_color: f5f5f5
+    l_bonus_5:
+        # type: grb
+        number: 46
+        default_on_color: f5f5f5
+    l_bonus_6:
+        # type: grb
+        number: 47
+        default_on_color: f5f5f5
+    l_bonus_7:
+        # type: grb
+        number: 48
+        default_on_color: f5f5f5
+    l_bonus_8:
+        # type: grb
+        number: 49
+        default_on_color: f5f5f5
+    l_bonus_9:
+        # type: grb
+        number: 50
+        default_on_color: f5f5f5
+    l_bonus_10:
+        # type: grb
+        number: 51
+        default_on_color: f5f5f5
+    l_bonus_20:
+        # type: grb
+        number: 52
+        default_on_color: f5f5f5
+    l_shoot_first:
+        # type: grb
+        number: 53
+        default_on_color: f5f5f5
+        tags: greedolights
+    l_train:
+        # type: grb
+        number: 54
+        default_on_color: f5f5f5
+    l_rescue:
+        # type: grb
+        number: 55
+        default_on_color: f5f5f5
+    l_escape:
+        # type: grb
+        number: 56
+        default_on_color: f5f5f5
+    l_deliver:
+        # type: grb
+        number: 57
+        default_on_color: f5f5f5
+    l_start:
+        # type: grb
+        number: 58
+        default_on_color: f5f5f5
+    l_shootagain:
+        # type: grb
+        number: 59
+        default_on_color: f5f5f5

@@ -1,0 +1,100 @@
+#config_version=5
+# STAR WARS
+
+coils:
+    c_top_gate:                             #### enable coil opens one way gate
+        number: 1
+        default_pulse_ms: 100
+        default_hold_power: 0.1
+    c_ds_lock:                              
+        number: 2
+        default_pulse_ms: 100
+    c_greedo_up:                            ##### coil to raise greedo drop
+        number: 3
+        default_pulse_ms: 100
+        pulse_events: left_inlane_hit
+    c_greedo_down:                          ##### coil to knock down greedo drop
+        number: 4
+        default_pulse_ms: 100
+        pulse_events: mode_greedotimer_stopping, ball_starting
+    c_pop_1:
+        number: 5
+        default_pulse_ms: 100
+    c_pop_2:
+        number: 6
+        default_pulse_ms: 100
+    c_droid_lock:
+        number: 7
+        default_pulse_ms: 100
+    c_left_flipper:
+        number: 8
+        default_pulse_ms: 100
+        default_hold_power: 0.15
+    c_right_flipper:
+        number: 9
+        default_pulse_ms: 100
+        default_hold_power: 0.15
+    c_trough:
+        number: 10
+        default_pulse_ms: 200
+    c_shooter:
+        number: 11
+        default_pulse_ms: 200
+    c_drop_reset:
+        number: 12
+        default_pulse_ms: 100
+    c_rescue_1:
+        number: 13
+        default_pulse_ms: 100
+    c_rescue_2:
+        number: 14
+        default_pulse_ms: 100
+    c_rescue_3:
+        number: 15
+        default_pulse_ms: 100
+    c_rescue_4:
+        number: 16
+        default_pulse_ms: 100
+    c_rescue_5:
+        number: 17
+        default_pulse_ms: 100
+    c_left_sling:
+        number: 18
+        default_pulse_ms: 100
+    c_ds_diverter:                          #### coil that opens deathstar lock diverter
+        number: 19                          #### enable events opens divertor
+        default_pulse_ms: 100
+        default_hold_power: 0.1
+    c_knocker:
+        number: 20
+        default_pulse_ms: 100
+        pulse_events:
+            knock
+    c_chime_1:
+        number: 21
+        default_pulse_ms: 100
+    c_chime_2:
+        number: 22
+        default_pulse_ms: 100
+    c_chime_3:
+        number: 23
+        default_pulse_ms: 100
+    c_bell:
+        number: 24
+        default_pulse_ms: 100
+    c_bash:                                 #### coil that opens bash portal TEMP SETUP
+        number: 25                          #### physical setup will use servo or stepper 
+        default_pulse_ms: 100                #### or something I think ;)
+        default_hold_power: 0.1
+
+#
+autofire_coils:
+  slingshot:
+    coil: c_left_sling
+    switch: s_left_sling
+  left_pop:
+    coil: c_pop_1
+    switch: s_pop_1
+  right_pop:
+    coil: c_pop_2
+    switch: s_pop_2

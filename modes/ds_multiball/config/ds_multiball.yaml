@@ -1,0 +1,86 @@
+#config_version=5
+# STAR WARS
+
+mode:
+    start_events: 
+        - ds_lock_enabled
+    stop_events:
+        - multiball_deathstar_mball_ended
+        - multiball_starwars_mball_ended
+       
+    priority: 300
+
+multiball_locks:
+    deathstar:
+        balls_to_lock: 1
+        lock_devices: bd_deathstar
+        locked_ball_counting_strategy: physical_only
+        disable_events: 
+            - multiball_droid_mball_started
+            - multiball_deathstar_mball_started
+            - multiball_starwars_mball_started
+
+multiballs:
+    deathstar_mball:
+        ball_count: 1
+        ball_count_type: add
+        shoot_again: 10s
+        ball_locks: bd_deathstar
+        enable_events: multiball_lock_deathstar_locked_ball
+        start_events: start_ds_multiball
+
+light_player:
+
+    multiball_lock_deathstar_locked_ball:
+        l_tractor_beam: on
+    multiball_deathstar_mball_started:
+        l_tractor_beam: off
+
+
+#############################################################
+# SHOW PLAYER:  set lights on events
+#############################################################
+
+show_player:
+
+    mode_ds_multiball_started: 
+        show_flash:
+            key: ds_flash
+            show_tokens:
+                led: l_tractor_beam 
+                color1: f5f5f5
+
+    multiball_lock_deathstar_full:
+        show_flash:
+            key: ds_flash
+            action: stop
+
+    multiball_deathstar_mball_shoot_again:
+        ds_ball_save:
+            action: play
+    
+    multiball_deathstar_mball_shoot_again_ended:
+        ds_ball_save:
+            action: stop
+
+    multiball_starwars_mball_shoot_again:
+        ds_ball_save:
+            action: play
+    
+    multiball_starwars_mball_shoot_again_ended:
+        ds_ball_save:
+            action: stop
+
+#############################################################
+# SHOWS
+#############################################################
+
+shows:
+       
+    ds_ball_save:
+        - duration: .25
+          lights:
+              l_shootagain: f5f5f5
+        - duration: .25
+          lights:
+              l_shootagain: off

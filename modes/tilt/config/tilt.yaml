@@ -1,0 +1,49 @@
+#config_version=5
+# STAR WARS
+
+tilt:
+    tilt_warning_events: s_tiltbob
+    tilt_warning_switch_tag: tilt_warning
+    warnings_to_tilt: 3
+    reset_warnings_events: ball_ended
+    multiple_hit_window: 400ms
+    settle_time: 5s
+
+slide_player:
+    _overwrite: true
+widget_player:
+    _overwrite: true
+
+segment_display_player:
+    tilt_warning_1: 
+      upperseg:
+        flashing: all
+        text: "DANGER "
+        expire: 3s
+    tilt_warning_2: 
+      upperseg:
+        flashing: all
+        text: "DANGER "
+        expire: 3s
+      lowerseg:
+        flashing: all
+        text: " DANGER"
+        expire: 3s
+    tilt:
+      upperseg:
+        flashing: all
+        text: "TILT "
+        key: tiltupper
+      lowerseg:
+        flashing: all
+        text: " TILT"
+        key: tiltlower
+    tilt_clear:
+      upperseg:
+        action: remove
+        key: tiltupper
+      lowerseg:
+        action: remove 
+        key: tiltlower
+
+

@@ -1,0 +1,245 @@
+#config_version=5
+# STAR WARS
+
+mode:
+    start_events:  
+        - ball_starting
+       
+    priority: 100
+
+#############################################################
+# SHOTS
+#############################################################
+shots:    
+    drop_1:
+        switch: s_rescue_1
+        show_tokens:
+            led: l_rescue_1
+        profile: p_onoff
+    drop_2:
+        switch: s_rescue_2
+        show_tokens:
+            led: l_rescue_2
+        profile: p_onoff
+    drop_3:
+        switch: s_rescue_3
+        show_tokens:
+            led: l_rescue_3
+        profile: p_onoff
+    drop_4:
+        switch: s_rescue_4
+        show_tokens:
+            led: l_rescue_4
+        profile: p_onoff
+    drop_5:
+        switch: s_rescue_5
+        show_tokens:
+            led: l_rescue_5
+        profile: p_onoff
+
+shot_groups:
+    storm_bank:
+        shots: drop_1, drop_2, drop_3, drop_4, drop_5
+        reset_events: 
+            reset_missions: 2s
+
+#############################################################
+# EVENT PLAYER:  queue scoring
+#############################################################
+
+event_player:
+    drop_1_lit_hit:
+        score_2hund:
+    drop_2_lit_hit:
+        score_2hund:
+    drop_3_lit_hit:
+        score_2hund:
+    drop_4_lit_hit:
+        score_2hund:
+    drop_5_lit_hit:
+        score_2hund:
+    drop_1_unlit_hit:
+        score_hund:
+    drop_2_unlit_hit:
+        score_hund:
+    drop_3_unlit_hit:
+        score_hund:
+    drop_4_unlit_hit:
+        score_hund:
+    drop_5_unlit_hit:
+        score_hund:
+
+    drop_target_bank_dt_bank_rescue_down{device.multiballs.leia_insta_mb.balls_added_live > 0}:      #super jackpot during LEIA MB
+        super_jackpot:
+
+#############################################################
+# STATE MACHINE   for sequential hit of targets
+#############################################################      
+
+state_machines:
+    rescuemb:
+        persist_state: true
+        starting_state: drop_1_flashing
+
+        states:
+            start:
+                label: rescue mb ready
+                show_when_active:
+                    show: off
+                    show_tokens: 
+                        led: l_rescue
+
+            success:
+                label: completed in order
+                events_when_started: start_rescue_mb
+                show_when_active:
+                    show: flash
+                    speed: 2
+                    show_tokens: 
+                        led: l_rescue
+
+            failed:
+                label: hit out of order
+                events_when_started: rescue_mb_failed
+
+            drop_1_flashing:
+                show_when_active:
+                    show: flash
+                    speed: 4
+                    show_tokens: 
+                        led: l_rescue_1
+                        
+            drop_2_flashing:
+                show_when_active:
+                    show: flash
+                    speed: 4
+                    show_tokens: 
+                        led: l_rescue_2
+                        
+            drop_3_flashing:
+                show_when_active:
+                    show: flash
+                    speed: 4
+                    show_tokens: 
+                        led: l_rescue_3
+                  
+            drop_4_flashing:
+                show_when_active:
+                    show: flash
+                    speed: 4
+                    show_tokens: 
+                        led: l_rescue_4
+                    
+            drop_5_flashing:
+                show_when_active:
+                    show: flash
+                    speed: 4
+                    show_tokens: 
+                        led: l_rescue_5
+                 
+        transitions:
+            - source: drop_1_flashing
+              target: drop_2_flashing
+              events: drop_1_lit_hit
+
+            - source: drop_2_flashing
+              target: drop_3_flashing
+              events: drop_2_lit_hit
+            
+            - source: drop_3_flashing
+              target: drop_4_flashing
+              events: drop_3_lit_hit
+            
+            - source: drop_4_flashing
+              target: drop_5_flashing
+              events: drop_4_lit_hit
+
+            - source: drop_1_flashing
+              target: failed
+              events: drop_2_lit_hit
+
+            - source: drop_1_flashing
+              target: failed
+              events: drop_3_lit_hit
+
+            - source: drop_1_flashing
+              target: failed
+              events: drop_4_lit_hit
+
+            - source: drop_1_flashing
+              target: failed
+              events: drop_5_lit_hit
+
+            - source: drop_2_flashing
+              target: failed
+              events: drop_3_lit_hit
+
+            - source: drop_2_flashing
+              target: failed
+              events: drop_4_lit_hit
+
+            - source: drop_2_flashing
+              target: failed
+              events: drop_5_lit_hit
+
+            - source: drop_3_flashing
+              target: failed
+              events: drop_4_lit_hit
+
+            - source: drop_3_flashing
+              target: failed
+              events: drop_5_lit_hit
+
+            - source: drop_4_flashing
+              target: failed
+              events: drop_5_lit_hit
+            
+            - source: drop_5_flashing
+              target: success
+              events: drop_5_lit_hit
+
+            - source: failed
+              target: drop_1_flashing
+              events: reset_missions
+            
+            - source: success
+              target: drop_1_flashing
+              events: reset_missions
+
+
+
+#############################################################
+# MULTIBALL the whole point of this mode
+#############################################################  
+
+multiballs:
+    rescue_insta_mb:
+        ball_count: 1
+        ball_count_type: add
+        shoot_again: 10s
+        start_events: start_rescue_mb
+
+#############################################################
+# SHOW PLAYER:  set lights on events
+#############################################################
+
+show_player:
+    multiball_rescue_insta_mb_started:
+        rescue_ball_save:
+            action: play
+    multiball_rescue_insta_mb_shoot_again_ended:
+        rescue_ball_save:
+            action: stop
+
+#############################################################
+# SHOWS
+#############################################################
+
+shows:
+    rescue_ball_save:
+        - duration: .25
+          lights:
+              l_shootagain: f5f5f5
+        - duration: .25
+          lights:
+              l_shootagain: off

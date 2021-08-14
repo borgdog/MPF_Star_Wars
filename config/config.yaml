@@ -1,0 +1,298 @@
+#config_version=5
+# STAR WARS 
+
+mpf:
+    report_crashes: never
+
+config:
+    - leds.yaml
+    - coils.yaml
+    - switches.yaml
+    - displays.yaml
+    - keys.yaml
+    # - servos.yaml
+
+hardware:
+    # platform: OPP
+    # driverboards: gen2
+    platform: virtual_pinball
+    segment_displays: virtual
+
+opp:
+    ports: COM9, COM10 # these are the COM ports on the Cobrapin board
+    chains:
+        0: COM9 # the zero board is on COM 9 and the..
+        1: COM10 # one board is on COM 10
+    debug: True
+
+virtual_platform_start_active_switches:
+    - s_trough_1
+    - s_trough_2
+    - s_trough_3
+    - s_trough_4
+    
+modes:
+    - base
+    - skill_shot
+    - bonus_count
+    - greedo
+    - greedotimer
+    - training
+    - rescue
+    - leia
+    - escape
+    - deliver
+    - spinnertimer
+    - droid_multiball
+    - ds_multiball
+    - starwars_multiball
+    - dt_bank
+    - r2d2
+    - super_spinner
+    - ebmode
+    - tilt
+    - endofgame
+    # - high_score
+       
+game:
+    balls_per_game: 3
+    max_players: 2
+
+player_vars:
+    mission_count:
+        initial_value: 0
+
+machine:
+  balls_installed: 4
+  min_balls: 1
+
+light_settings:
+    default_fade_ms: 200
+
+playfields:
+    playfield:
+        default_source_device: bd_plunger
+        tags: default
+
+ball_devices:
+    bd_trough:
+        ball_switches: s_trough_1, s_trough_2, s_trough_3, s_trough_4, s_jam
+        eject_coil: c_trough
+        debug: true
+        jam_switch: s_jam
+        eject_coil_jam_pulse: 100ms
+        eject_targets: bd_plunger
+        entrance_count_delay: 300ms
+        confirm_eject_switch: s_shooter
+        confirm_eject_type: switch
+        eject_timeouts: 500ms
+        tags: drain, home, trough
+
+    bd_deathstar:
+        eject_coil: c_ds_lock
+        ball_switches: s_ds_lock
+        eject_timeouts: 1s
+
+    bd_droid:
+        eject_coil: c_droid_lock
+        ball_switches: s_droid_lock
+        eject_timeouts: 500ms
+    
+    bd_plunger:
+        ball_switches: s_shooter
+        eject_targets: playfield
+        eject_coil: c_shooter
+        eject_timeouts: 3s
+        mechanical_eject: true
+
+extra_ball_groups:
+    main:
+        max_per_ball: 1
+#
+drop_targets:
+
+    dt_5:
+        switch: s_rescue_5
+        knockdown_coil: c_rescue_5
+        knockdown_events: knock_5
+    dt_4:
+        switch: s_rescue_4
+        knockdown_coil: c_rescue_4
+        knockdown_events: knock_4
+    dt_3:
+        switch: s_rescue_3
+        knockdown_coil: c_rescue_3
+        knockdown_events: knock_3
+    dt_2:
+        switch: s_rescue_2
+        knockdown_coil: c_rescue_2
+        knockdown_events: knock_2
+    dt_1:
+        switch: s_rescue_1
+        knockdown_coil: c_rescue_1
+        knockdown_events: knock_1
+
+    dt_greedo:
+        switch: s_greedo
+        reset_coil: c_greedo_up
+        knockdown_coil: c_greedo_down
+        reset_events: left_inlane_hit
+        knockdown_events: timer_greedo_timer_stopped, ball_starting
+ 
+drop_target_banks:
+    dt_bank_rescue:
+        drop_targets: dt_1, dt_2, dt_3, dt_4, dt_5
+        reset_coil: c_drop_reset
+        reset_on_complete: 2s
+        reset_events:
+            - ball_starting{game.num_players>1 or current_player.ball == 1} 
+            
+
+flippers:
+    left_flipper:
+        main_coil: c_left_flipper
+        activation_switch: s_left_flipper
+    right_flipper:
+        main_coil: c_right_flipper
+        activation_switch: s_right_flipper
+
+diverters:
+    ds_diverter:                        #### activate opens diverter to deathstar lock
+        activation_coil: c_ds_diverter
+        type: hold
+        enable_events: ball_starting
+        activate_events: 
+            - balldevice_bd_deathstar_ejecting_ball
+            - ds_lock_enabled{device.ball_devices.bd_deathstar.balls == 0}
+        deactivate_events: 
+            - balldevice_bd_deathstar_ball_eject_success
+            - multiball_lock_deathstar_locked_ball
+            - ball_ending
+
+    top_gate_diverter:                  #### activate opens one way gate for right loops
+        activation_coil: c_top_gate
+        type: hold
+        enable_events: ball_starting
+        activate_events: 
+            - mode_skill_shot_started 
+            - plans_complete
+            - diverter_ds_diverter_deactivating
+            - mode_skill_shot_stopped{device.achievements.deliver.state == "completed" and diverter_ds_diverter.active == "false"}
+        deactivate_events: 
+            - diverter_ds_diverter_activating
+            - mode_skill_shot_stopped{device.achievements.deliver.state == "started"}
+            - ball_ending
+    
+    bash_diverter:
+        activation_coil: c_bash
+        type: hold
+        enable_events: ball_starting
+        activate_events: 
+            - multiball_lock_deathstar_locked_ball
+            - multiball_lock_droid_locked_ball
+        deactivate_events: 
+            - multiball_droid_mball_started 
+            - multiball_deathstar_mball_started 
+            - multiball_starwars_mball_ended
+            - extra_ball_awarded
+
+#############################################################
+# SPINNER
+#############################################################
+
+spinners:
+    left_spinner:
+        switch: s_spinner
+        active_ms: 1500ms
+
+#############################################################
+# SHOW PLAYER:  play shows on events
+#############################################################
+
+show_player:
+    player_added{num==1}: 
+        chimeinit1:
+            loops: 0
+    player_added{num==2}: 
+        chimeinit2:
+            loops: 0
+
+    extra_ball_awarded:
+        shootagain_flash:
+            loops: -1
+            key: exball
+
+    mode_skill_shot_stopped:
+        shootagain_flash:
+            key: exball
+            action: stop
+
+
+
+#############################################################
+# SLIDE PLAYER:  play slides on events
+#############################################################
+
+slide_player:
+  mc_ready: # when the mc (Media Center) is ready start the...
+    layout: # layout slide on the..
+        target: window # ENTIRE Window
+
+  init_done:    #when init is done put the base images up
+    background:
+        target: backglass
+    uppersegment:
+        target: upperdisplay
+    lowersegment:
+        target: lowerdisplay
+    bipsegment:
+        target: bipdisplay
+    gameover_widget:
+        target: godisplay
+      
+  game_starting:
+    background_lit:
+        target: backglass
+        
+    gameover_blank:
+        target: godisplay
+  
+  game_ended:
+    background:
+        target: backglass
+
+    gameover_widget:
+        target: godisplay
+
+
+    
+
+#############################################################
+# SEGMENT PLAYER:  update score displays
+#############################################################
+
+segment_display_player:
+  update_segment_display_score:
+    upperseg:
+      flashing: off
+      color: 00acf0
+      text: "{players[0].score:0>2}"
+    lowerseg:
+      flashing: off
+      color: 00acf0
+      text:  "{players[1].score:0>2}"
+  ball_started:
+    bipseg:
+      color: 00acf0
+      text: "{current_player.ball:d}"
+  game_ending:
+    bipseg:
+      text: ""
+
+#############################################################
+# SCORE QUEUE:  early SS chime scoring
+#############################################################
+score_queues:
+    score:
+        chimes: None, c_bell, c_chime_3, c_chime_2, c_chime_1, None
+        delay: 150ms

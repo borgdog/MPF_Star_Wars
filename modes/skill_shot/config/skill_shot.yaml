@@ -1,0 +1,156 @@
+#config_version=5
+# STAR WARS
+#
+#   Skill shot mode: hit flashing top lane on plunge to be awarded 10,000 points.
+
+mode:
+    start_events: ball_starting
+    stop_events: 
+        - award_skill
+        - sw_skill_cancel{not mode.dt_bank.active}
+    priority: 200
+
+        
+#############################################################
+# SHOTS
+#############################################################
+
+shots:
+    skill_shot_l:
+        advance_events: skill_advance_1
+        switch: s_plans_1
+        profile: sp_skill_shot
+        show_tokens:
+            leds: l_plans_1
+    skill_shot_m:
+        advance_events: skill_advance_2
+        switch: s_plans_2
+        profile: sp_skill_shot
+        show_tokens:
+            leds: l_plans_2
+    skill_shot_r:
+        advance_events: skill_advance_3
+        switch: s_plans_3
+        profile: sp_skill_shot
+        show_tokens:
+            leds: l_plans_3
+
+#############################################################
+# BALL SAVE
+#############################################################
+ball_saves:
+    skill_shot_bs:
+        balls_to_save: -1
+        auto_launch: true
+
+#############################################################
+# SHOT PROFILES
+#############################################################
+
+shot_profiles:
+    sp_skill_shot:
+        block: false   #CLEAR PLANS LIGHT
+        advance_on_hit: false
+        states:
+            - name: unlit
+              show: off
+            - name: lit
+              show: flash
+              loops: -1
+              speed: 4
+            - name: hit
+              show: on
+
+#############################################################
+# SHOT GROUPS
+#############################################################
+
+shot_groups:
+    skill_shot:
+        shots: skill_shot_l, skill_shot_m, skill_shot_r
+        reset_events: mode_skill_shot_starting
+
+
+#############################################################
+# RANDOM EVENT PLAYER:  select random shot for skill shot
+#############################################################
+
+random_event_player:              
+    mode_skill_shot_started:
+        events:
+            - skill_advance_1
+            - skill_advance_2
+            - skill_advance_3
+
+#############################################################
+# EVENT PLAYER:  play events when events occur :)
+#############################################################
+
+event_player:
+    skill_shot_unlit_hit: sw_skill_cancel
+    skill_shot_lit_hit: 
+        - award_skill
+        - score_skill_shot_10k
+
+#############################################################
+# SEGMENT PLAYER:  update score displays
+#############################################################
+
+segment_display_player:
+    mode_skill_shot_started{current_player.number==1}: 
+        upperseg:
+            flashing: all
+            text: "{players[0].score:0>2,}"
+
+    mode_skill_shot_started{current_player.number==2}: 
+        lowerseg:
+            flashing: all
+            text: "{players[1].score:0>2,}"
+    
+#############################################################
+# SHOW PLAYER:  play shows on events
+#############################################################
+
+show_player:
+    mode_skill_shot_started{current_player.number==1}:
+        show_skill_one:
+            speed: .5
+            loops: -1
+
+    mode_skill_shot_started{current_player.number==2}: 
+        show_skill_two:
+            speed: .5
+            loops: -1
+
+    
+#############################################################
+# SHOWS
+#############################################################
+
+shows:
+    show_skill_one:
+
+    - time: 0
+      segment_displays:
+        lowerseg:
+            color: 00acf0
+            text: " "
+            priority: 1000
+            transition:
+                type: push
+                direction: left
+                text: "SKILL SHOT"
+
+
+    show_skill_two:
+    - time: 0
+      segment_displays:
+        upperseg:
+            color: 00acf0
+            text: " "
+            priority: 1000
+            transition:
+                type: push
+                direction: left
+                text: "SKILL SHOT"
+ 

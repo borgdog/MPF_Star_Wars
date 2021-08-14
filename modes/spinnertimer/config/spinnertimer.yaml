@@ -1,0 +1,31 @@
+#config_version=5
+# STAR WARS
+
+mode:
+    start_events: 
+        - right_inlane_hit
+    stop_events:
+        - timer_spinner_timer_complete
+    priority: 300
+
+#############################################################
+# TIMERS            to control spinner scoring
+#############################################################
+
+timers:
+
+    spinner_timer:
+        direction: down
+        start_value: 4
+        end_value: 0
+        max_value: 4
+        tick_interval: 1s
+        control_events:
+            - event: right_inlane_hit
+              action: restart
+            - event: spinner_left_spinner_hit
+              action: add
+              value: 2
+            - event: mode_spinnertimer_started
+              action: start
+ 

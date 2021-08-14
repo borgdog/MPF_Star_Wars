@@ -1,0 +1,101 @@
+#config_version=5
+# STAR WARS
+
+mode:
+    start_events: 
+        - ball_starting
+       
+    priority: 200
+
+#############################################################
+# SHOTS
+#############################################################
+
+shots:    
+    leia_1:
+        switch: s_leia_1
+        show_tokens:
+            led: l_leia_1
+        profile: p_offon
+    leia_2:
+        switch: s_leia_2
+        show_tokens:
+            led: l_leia_2
+        profile: p_offon
+    leia_3:
+        switch: s_leia_3
+        show_tokens:
+            led: l_leia_3
+        profile: p_offon
+    leia_4:
+        switch: s_leia_4
+        show_tokens:
+            led: l_leia_4
+        profile: p_offon
+            
+
+#############################################################
+# SHOT GROUPS
+#############################################################      
+shot_groups:
+    leia:
+        shots:
+            - leia_1
+            - leia_2
+            - leia_3
+            - leia_4
+        enable_events:
+            - ball_started
+        reset_events:
+            - multiball_leia_insta_mb_started
+        restart_events:
+            - ball_started{device.shot_groups.leia.common_state == "lit"}
+            - multiball_leia_insta_mb_ended
+        
+#############################################################
+# EVENT PLAYER:
+#############################################################
+
+event_player:
+    leia_unlit_hit:
+        score_2hund:
+    leia_lit_hit:
+        score_hund:
+    leia_lit_complete{device.multiballs.rescue_insta_mb.balls_added_live > 0}:      #super jackpot during Rescue MB
+        super_jackpot:
+
+#############################################################
+# MULTIBALL the whole point of this mode
+#############################################################  
+
+multiballs:
+    leia_insta_mb:
+        ball_count: 1
+        ball_count_type: add
+        shoot_again: 10s
+        start_events: leia_lit_complete
+
+#############################################################
+# SHOW PLAYER:  set lights on events
+#############################################################
+
+show_player:
+    multiball_leia_insta_mb_started:
+        leia_ball_save:
+            action: play
+    multiball_leia_insta_mb_shoot_again_ended:
+        leia_ball_save:
+            action: stop
+
+#############################################################
+# SHOWS
+#############################################################
+
+shows:
+      leia_ball_save:
+        - duration: .25
+          lights:
+              l_shootagain: f5f5f5
+        - duration: .25
+          lights:
+              l_shootagain: off

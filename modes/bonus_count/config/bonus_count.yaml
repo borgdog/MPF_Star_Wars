@@ -1,0 +1,122 @@
+#config_version=5
+# STAR WARS
+
+mode:
+    priority: 500
+    start_events: ball_will_end{device.counters.swbonus.value>0}        #### only start counting if you have bonus
+    stop_events: logicblock_bonusxCountDown_complete                  #### end when the last bonus and bonusX is paid out
+    use_wait_queue: true
+
+queue_relay_player:                                                     #### tell ball_ending to wait until done counting bonus
+    ball_ending:     
+        post: start_bonusx_count  
+        wait_for: logicblock_bonusxCountDown_complete   
+
+#############################################################
+# TIMERS  
+#############################################################
+
+timers:
+    bonusCountDown:                                         #### run through one cycle of bonus
+        start_value: device.counters.swbonus.value          #### start with bonus earned. swbonus is the counter I used
+        end_value: 0                                        
+        direction: down                             
+        tick_interval: 200ms                        
+        # debug: true
+        control_events:
+            - action: restart 
+              event: logicblock_bonusxCountDown_updated{value!=0}       #### run through again if still have bonusX
+  
+#######################################################################
+# COUNTERS       
+#######################################################################
+
+counters:
+    bonusxCountDown:                                    #### reduce bonusX after each cycle of bonus count  
+        count_events:
+           - timer_bonusCountDown_complete              #### count down after running through bonus
+        starting_count: device.counters.bonusx.value    #### start with earned bonusX
+        count_complete_value: 0
+        direction: down
+        persist_state: false
+        disable_on_complete: true
+        reset_on_complete: false
+        # enable_events: start_bonusx_count               #### start after queue_relay_player event posts
+
+
+#############################################################################
+# EVENT PLAYER:      
+#############################################################################
+
+event_player:                                           #### do the scoring - this uses score_queues for chimes
+    timer_bonusCountDown_tick{ticks!=0}:                #### could use just score: as well if don't need the queue
+        score_bonus_thou: 
+
+#############################################################################
+# LIGHT PLAYER:         have you tried turning the lights off and on again?
+#############################################################################
+
+light_player:                                           #### changes lights based on events
+
+    logicblock_bonusxCountDown_updated{value==1}:       ####  light appropriate bonus X lights based on the counter value
+        l_bonus_2x: off                                 ####  this could probably be automated more with shows and tokens or code
+    logicblock_bonusxCountDown_updated{value==2}:
+        l_bonus_3x: off
+        l_bonus_2x: on
+    logicblock_bonusxCountDown_updated{value==3}:
+        l_bonus_4x: off
+        l_bonus_3x: on
+    logicblock_bonusxCountDown_updated{value==4}:
+        l_bonus_5x: off
+        l_bonus_4x: on
+    logicblock_bonusxCountDown_updated{value==5}:
+        l_bonus_5x: on
+
+
+    timer_bonusCountDown_tick{ticks>9 and ticks<20}:    #### light appropriate bonus light based on timer 'tick'
+        l_bonus_10: on                                  #### this could probably be automated more with shows and tokens or code
+                                                        #### my bonus is setup to max out at 39 so that is what this is setup for
+    timer_bonusCountDown_tick{ticks>19}:                #### should be fairly easy to add more, or use less
+        l_bonus_20: on                                  #### bonus of 39 has lights for 20, 10 and 9 lit
+
+    timer_bonusCountDown_tick{ticks>29}:
+        l_bonus_10: on
+
+    timer_bonusCountDown_tick{ticks<20}:
+        l_bonus_20: off
+    
+    timer_bonusCountDown_tick{ticks<10}:
+        l_bonus_10: off
+
+    timer_bonusCountDown_tick{ticks % 10 == 9}:
+        l_bonus_9: on
+    timer_bonusCountDown_tick{ticks % 10 == 8}:
+        l_bonus_8: on
+        l_bonus_9: off
+    timer_bonusCountDown_tick{ticks % 10 == 7}:
+        l_bonus_7: on
+        l_bonus_8: off
+    timer_bonusCountDown_tick{ticks % 10 == 6}:
+        l_bonus_6: on
+        l_bonus_7: off
+    timer_bonusCountDown_tick{ticks % 10 == 5}:
+        l_bonus_5: on
+        l_bonus_6: off
+    timer_bonusCountDown_tick{ticks % 10 == 4}:
+        l_bonus_4: on
+        l_bonus_5: off
+    timer_bonusCountDown_tick{ticks % 10 == 3}:
+        l_bonus_3: on
+        l_bonus_4: off
+    timer_bonusCountDown_tick{ticks % 10 == 2}:
+        l_bonus_2: on
+        l_bonus_3: off
+    timer_bonusCountDown_tick{ticks % 10 == 1}:
+        l_bonus_1: on
+        l_bonus_2: off
+    timer_bonusCountDown_complete{ticks % 10 == 0}:
+        l_bonus_1: off
+
+
+
+

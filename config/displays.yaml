@@ -1,0 +1,279 @@
+#config_version=5
+# STAR WARS 
+
+###############################################################################################
+#                                    WINDOW                                                   #
+###############################################################################################
+
+
+window:  # defines the area of the TV monitor that can be used for the backbox display
+  title: SWbackbox
+  width: 1080
+  height: 1219    
+  resizable: false
+  fullscreen: false
+  borderless: true
+  exit_on_escape: true
+  top: 0
+  left: 0
+
+###############################################################################################
+#                                     DISPLAYS                                                #
+###############################################################################################
+
+displays:
+  upperdisplay:
+    width: 400
+    height: 95
+  lowerdisplay:
+    width: 400
+    height: 95
+  bipdisplay:
+    width: 50  
+    height: 75
+  godisplay:
+    width: 100
+    height: 90
+  backglass:
+    width: 1080
+    height: 1219
+  window:
+    width: 1080
+    height: 1219
+
+segment_displays:
+  upperseg:
+    default_transition_update_hz: 9
+    size: 7
+    number: 1
+  lowerseg:
+    default_transition_update_hz: 9
+    size: 7
+    number: 2
+  bipseg:
+    number: 3
+    size: 1
+
+virtual_segment_display_connector:
+  segment_displays:
+    - upperseg
+    - lowerseg
+    - bipseg
+
+###############################################################################################
+#                                       SLIDES                                                #
+###############################################################################################
+
+slides:
+  layout: # THIS IS THE MAIN SLIDE THAT DRIVES ALL BACKBOX
+    widgets: # these widgets are the...
+      - type: display               # upper segment display
+        width: 400
+        height: 95
+        x: 647
+        y: 980
+        anchor_x: left
+        anchor_y: bottom
+        source_display: upperdisplay
+        # effects:
+        #   - type: color_dmd
+        #     dots_x: 256
+        #     dots_y: 64
+        #     dot_size: 1.0
+        #     gain: 1.2
+
+
+      - type: display               # lower segment display
+        width: 400
+        height: 95
+        x: 647
+        y: 800 
+        anchor_x: left
+        anchor_y: bottom
+        source_display: lowerdisplay
+        # effects:
+        #   - type: color_dmd
+        #     dots_x: 256
+        #     dots_y: 64
+        #     dot_size: 1.0
+        #     gain: 1.2
+
+
+
+      - type: display               # BIP segment display
+        width: 50
+        height: 75
+        x: 965
+        y: 224 
+        anchor_x: left
+        anchor_y: bottom
+        source_display: bipdisplay
+        # effects:
+        #   - type: color_dmd
+        #     dots_x: 256
+        #     dots_y: 64
+        #     dot_size: 1.0
+        #     gain: 1.2
+
+      - type: display               # game over display
+        width: 100
+        height: 90
+        x: 782
+        y: 1100
+        anchor_x: left
+        anchor_y: bottom
+        source_display: godisplay
+
+      - type: display               # background
+        width: 1080
+        height: 1219
+        x: 0
+        y: 0
+        anchor_x: left
+        anchor_y: bottom
+        source_display: backglass
+        
+  background:
+    widgets:
+      - type: image
+        image: sw_bg_unlit
+        z: 5
+  
+  background_lit:
+    widgets:
+      - type: image
+        image: sw_bg_lit
+        z: 5
+
+  gameover_widget:
+    background_color: 00000000
+    widgets:
+      - type: text
+        text: "GAME\nOVER"
+        color: 30a8c0
+        font_name: deathstar
+        font_size: 30
+        animations:
+          show_slide:
+            - property: opacity
+              value: 1
+              duration: .15s
+              easing: in_out_quad
+            - property: y
+              value: 0
+              relative: True
+              duration: .75s
+            - property: opacity
+              value: 0
+              duration: .25s
+              easing: in_out_quad
+            - property: y
+              value: 0
+              relative: True
+              duration: .15s
+            - property: opacity
+              value: 1
+              duration: .15s
+              easing: in_out_quad
+            - property: y
+              value: 0
+              relative: True
+              duration: 1.25s
+            - property: opacity
+              value: 0
+              duration: .25s
+              easing: in_out_quad
+            - property: y
+              value: 0
+              relative: True
+              duration: .35s
+            - property: opacity
+              value: 1
+              duration: .15s
+              easing: in_out_quad
+            - property: y
+              value: 0
+              relative: True
+              duration: .5s
+            - property: opacity
+              value: 0
+              duration: .15s
+              easing: in_out_quad
+            - property: y
+              value: 0
+              relative: True
+              duration: .15s
+              repeat: true
+  
+  
+  gameover_blank: 
+    background_color: 00000000
+    widgets: []
+
+
+
+  uppersegment:
+    widgets:
+      - type: segment_display_emulator
+        name: upperseg
+        # display_type: 8segment
+        text: "       "
+        character_count: 7
+        character_slant_angle: 10
+        character_spacing: 11
+        padding: 12
+        segment_width: 0.12
+        segment_off_color: 012030
+        segment_on_color: 00acf0
+        comma_enabled: true
+        width: 400
+        height: 95
+        anchor_x: left
+        anchor_y: bottom
+        x: 0
+        y: 0
+        z: 10
+
+  lowersegment:
+    widgets:
+      - type: segment_display_emulator
+        name: lowerseg
+        # display_type: 8segment
+        text: "       "
+        character_count: 7
+        character_slant_angle: 10
+        character_spacing: 11
+        padding: 12
+        segment_width: 0.12
+        segment_off_color: 012030
+        segment_on_color: 00acf0
+        comma_enabled: true
+        width: 400
+        height: 95
+        anchor_x: left
+        anchor_y: bottom
+        x: 0
+        y: 0
+        z: 10
+
+  bipsegment:
+    widgets:
+      - type: segment_display_emulator
+        name: bipseg
+        display_type: 7seg
+        text: " "
+        character_count: 1
+        character_slant_angle: 10
+        character_spacing: 11
+        padding: 12
+        segment_width: 0.16
+        segment_off_color: 012030
+        segment_on_color: 00acf0
+        width: 50
+        height: 75
+        anchor_x: left
+        anchor_y: bottom
+        x: 0
+        y: 0
+        z: 10
+

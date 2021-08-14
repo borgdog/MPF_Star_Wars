@@ -1,0 +1,799 @@
+#config_version=5
+# STAR WARS
+
+mode:
+    start_events: ball_starting
+    priority: 100
+
+#############################################################
+# VARIABLE PLAYER:
+#############################################################
+
+variable_player:
+    reset_missions:             #### track how many times main multiballs started
+        mission_count: 1        #### currently controls flipper rotate of top lanes
+                                
+
+#############################################################
+# SCORE QUEUE PLAYER: old school SS style scoring
+#############################################################
+
+score_queue_player:
+    score_ten:
+        score: 10 * game.balls_in_play
+    score_fifty:
+        score: 50 * game.balls_in_play
+    score_hund:
+        score: 100 * game.balls_in_play
+    score_2hund:
+        score: 200 * game.balls_in_play
+    score_5hund:
+        score: 500 * game.balls_in_play
+    score_thou:
+        score: 1000 * game.balls_in_play
+    score_2thou:
+        score: 2000 * game.balls_in_play
+    score_5thou:
+        score: 5000 * game.balls_in_play
+    score_10thou:
+        score: 10000 * game.balls_in_play
+    jackpot:
+        score: 5000 * game.balls_in_play
+    super_jackpot:
+        score: 10000 * game.balls_in_play
+    score_bonus_thou:
+        score: 1000
+    score_skill_shot_10k:
+        score: 10000
+
+#############################################################
+# EVENT PLAYER:
+#############################################################
+
+event_player:
+    ds_target_hit{device.multiballs.deathstar_mball.enabled and not device.multiballs.droid_mball.enabled}:  
+        - start_ds_multiball
+    ds_target_hit{device.multiballs.droid_mball.enabled and not device.multiballs.deathstar_mball.enabled}:
+        - start_droid_multiball
+    ds_target_hit{device.multiballs.droid_mball.enabled and device.multiballs.deathstar_mball.enabled}:
+        - start_starwars_multiball
+    multiball_droid_mball_started:
+        - reset_missions
+    multiball_deathstar_mball_started:
+        - reset_missions
+    multiball_starwars_mball_started:
+        - reset_missions
+    dingwalls_hit:
+        score_ten
+    pop_1_hit{device.counters.super_droid.completed}:
+        score_thou
+    pop_2_hit{device.counters.super_droid.completed}:
+        score_thou 
+    pop_1_hit{not device.counters.super_droid.completed}:
+        score_hund
+    pop_2_hit{not device.counters.super_droid.completed}:
+        score_hund
+    left_sling_hit:
+        score_ten 
+    left_inlane_lit_hit:
+        score_2hund 
+    right_inlane_lit_hit:
+        score_2hund
+    left_inlane_unlit_hit:
+        score_hund 
+    right_inlane_unlit_hit:
+        score_hund
+    left_outlane_hit:
+        score_5hund
+    right_outlane_hit: 
+        score_5hund
+    
+
+    spinner_left_spinner_hit{mode.spinnertimer.active==True and device.counters.super_spins.completed}: score_2thou
+    spinner_left_spinner_hit{mode.spinnertimer.active==False and device.counters.super_spins.completed}: score_thou 
+    spinner_left_spinner_hit{mode.spinnertimer.active==True and not device.counters.super_spins.completed}: score_thou
+    spinner_left_spinner_hit{mode.spinnertimer.active==False and not device.counters.super_spins.completed}: score_hund
+
+
+
+#############################################################
+# SHOTS
+#############################################################
+
+shots:
+    dingwalls:
+        switch: s_dingwalls
+    
+    left_outlane:
+        switch: s_l_outlane
+    left_inlane:
+        switch: s_l_inlane
+        advance_events: mode_base_starting
+        profile: p_noadvance
+        show_tokens:
+            led: l_l_inlane
+    right_outlane:
+        switch: s_r_outlane
+    right_inlane:
+        switch: s_r_inlane
+        profile: p_noadvance
+        show_tokens:
+            led: l_r_inlane
+    
+    pop_1:
+        switch: s_pop_1
+    pop_2:
+        switch: s_pop_2
+    
+    left_sling:
+        switch: s_left_sling
+
+    ds_target:
+        switch: s_ds_target
+
+  
+#
+#############################################################
+# SHOT GROUPS
+#############################################################
+shot_groups:
+    inlanes:
+        shots: 
+            - left_inlane
+            - right_inlane
+        rotate_events:
+            - pop_1_hit
+            - pop_2_hit
+            - dingwalls_hit
+            - left_sling_hit
+        enable_events:
+            - ball_started
+        disable_events:
+            - ball_ending
+    
+    
+
+#############################################################
+# SHOT PROFILES
+#############################################################
+
+shot_profiles:
+    p_onoff:
+        states:
+            - name: lit # step 1
+              show: on
+            - name: unlit  # step 2
+              show: off
+        loop: no
+    p_offon:
+        states:
+            - name: unlit # step 1
+              show: off
+            - name: lit  # step 2
+              show: on
+        loop: no
+    p_noadvance:
+        advance_on_hit: false
+        states:
+            - name: unlit
+              show: "off"
+            - name: lit
+              show: "on"
+
+    p_noadvanceonoff:
+        advance_on_hit: false
+        states:
+            - name: lit
+              show: "on"
+            - name: unlit
+              show: "off"
+    
+
+#
+#######################################################################
+# COUNTERS                         
+#######################################################################
+
+counters:
+    swbonus:
+        count_events: 
+            - drop_1_hit
+            - drop_2_hit
+            - drop_3_hit
+            - drop_4_hit 
+            - drop_5_hit
+            - left_inlane_lit_hit
+            - right_inlane_lit_hit
+            - plans_1_lit_hit
+            - plans_2_lit_hit
+            - plans_3_lit_hit
+            - training_1_lit_hit
+            - training_2_lit_hit
+            - training_3_lit_hit
+            - training_4_lit_hit
+            - training_5_lit_hit
+            - training_6_lit_hit
+
+        starting_count: 0         # no free bonus here!
+        count_complete_value: 39  # all bonus lights lit!
+        direction: up
+        persist_state: false
+        disable_on_complete: true
+
+    bonusx:
+        count_events: 
+            - left_outlane_hit
+            - right_outlane_hit
+            - drop_target_bank_dt_bank_rescue_down
+        starting_count: 1        # start at 1x bonus multiplier
+        count_complete_value: 5  # 5x bonus multiplier lights max value
+        direction: up
+        persist_state: false
+        disable_on_complete: true
+
+
+#############################################################
+# LIGHT PLAYER:  set lights on events.. MISSON and BONUS LIGHTS
+#############################################################
+
+light_player:
+    reset_missions:
+        l_rescue: off
+        l_deliver: off
+        l_train: off
+        l_escape: off
+
+    start_greedo_mb:
+        l_shoot_first: on
+
+    logicblock_swbonus_updated{value>19}:
+        l_bonus_20: on
+    logicblock_swbonus_updated{value>9 and value<20}:
+        l_bonus_10: on
+    logicblock_swbonus_updated{value>29}:
+        l_bonus_10: on
+    logicblock_swbonus_updated{value>19 and value<30}:
+        l_bonus_10: off
+    logicblock_swbonus_updated{value == 10}:
+        l_bonus_9: off
+    logicblock_swbonus_updated{value % 10 == 9}:
+        l_bonus_9: on
+        l_bonus_8: off
+    logicblock_swbonus_updated{value % 10 == 8}:
+        l_bonus_8: on
+        l_bonus_7: off
+    logicblock_swbonus_updated{value % 10 == 7}:
+        l_bonus_7: on
+        l_bonus_6: off
+    logicblock_swbonus_updated{value % 10 == 6}:
+        l_bonus_6: on
+        l_bonus_5: off
+    logicblock_swbonus_updated{value % 10 == 5}:
+        l_bonus_5: on
+        l_bonus_4: off
+    logicblock_swbonus_updated{value % 10 == 4}:
+        l_bonus_4: on
+        l_bonus_3: off
+    logicblock_swbonus_updated{value % 10 == 3}:
+        l_bonus_3: on
+        l_bonus_2: off
+    logicblock_swbonus_updated{value % 10 == 2}:
+        l_bonus_2: on
+        l_bonus_1: off
+    logicblock_swbonus_updated{value % 10 == 1}:
+        l_bonus_1: on
+
+    logicblock_bonusx_updated{value==2}:
+        l_bonus_2x: on
+    logicblock_bonusx_updated{value==3}:
+        l_bonus_2x: off
+        l_bonus_3x: on
+    logicblock_bonusx_updated{value==4}:
+        l_bonus_3x: off
+        l_bonus_4x: on
+    logicblock_bonusx_updated{value==5}:
+        l_bonus_4x: off
+        l_bonus_5x: on
+
+#############################################################
+# ACHIEVEMENTS  the 4 main missions
+#############################################################
+
+achievements:
+    train:
+        start_enabled: true
+        start_events: ball_started, achievement_train_state_enabled
+        reset_events: reset_missions
+        show_tokens:
+            led: l_train
+        show_when_completed: on
+        show_when_enabled: off
+        complete_events: logicblock_swtraining_complete
+    rescue:
+        start_enabled: true
+        start_events: ball_started, achievement_rescue_state_enabled
+        reset_events: reset_missions
+        show_tokens:
+            led: l_rescue
+        show_when_completed: on
+        show_when_enabled: off
+        complete_events: drop_target_bank_dt_bank_rescue_down
+    escape:
+        start_enabled: true
+        start_events: ball_started, achievement_escape_state_enabled
+        reset_events: reset_missions
+        show_tokens:
+            led: l_escape
+        show_when_completed: on
+        show_when_enabled: off
+        complete_events: logicblock_escape_count_complete
+    deliver:
+        start_enabled: true
+        start_events: ball_started, achievement_deliver_state_enabled
+        reset_events: reset_missions
+        show_tokens:
+            led: l_deliver
+        show_when_completed: on
+        show_when_enabled: off
+        complete_events: plans_unlit_complete
+
+
+#############################################################
+# ACHIEVEMENT GROUPS complete sets of missions to enable MBs
+#############################################################
+
+achievement_groups:
+    ds_lock:            #enable death star tractor beam when all missions except Escape completed
+        achievements:
+            - train
+            - rescue
+            - deliver
+        events_when_all_completed:
+            - ds_lock_enabled
+        disable_events:
+            - ds_lock_enabled
+        # enable_while_no_achievement_started: false
+        enable_events:
+            - reset_missions
+    droid_lock_a:       #enable droid lock when any 3 missions INCLUDING ESCAPE are complete
+        achievements:
+            - escape
+            - train
+            - rescue
+        events_when_all_completed:
+            - droid_lock_enabled
+        disable_events:
+            - droid_lock_enabled
+        # enable_while_no_achievement_started: false
+        enable_events:
+            - reset_missions
+    droid_lock_b:
+        achievements:
+            - escape
+            - train
+            - deliver
+        events_when_all_completed:
+            - droid_lock_enabled
+        disable_events:
+            - droid_lock_enabled
+        # enable_while_no_achievement_started: false
+        enable_events:
+            - reset_missions
+    droid_lock_c:
+        achievements:
+            - escape
+            - rescue
+            - deliver
+        events_when_all_completed:
+            - droid_lock_enabled
+        disable_events:
+            - droid_lock_enabled
+        # enable_while_no_achievement_started: false
+        enable_events:
+            - reset_missions
+        
+        
+#############################################################
+# TIMERS
+#############################################################
+
+timers:
+    ejecttimer:
+        start_running: True
+        start_value: 4 if current_player.ball==1 and current_player.number==1 else 1
+        end_value: 0
+        direction: down
+        tick_interval: 0.5s
+        control_events:
+            - event: ball_save_bs_saving_ball
+              action: restart
+            - event: ball_save_skill_bs_enabled
+              action: restart
+        debug: true
+
+
+#############################################################
+# SEGMENT PLAYER:  update score displays
+#############################################################
+
+segment_display_player:
+  mode_skill_shot_stopped: 
+    upperseg:
+      flashing: off
+      color: 00acf0
+      text: "{players[0].score:0>2,}"
+  mode_skill_shot_stopped{game.num_players==2}:
+    lowerseg:
+      flashing: off
+      color: 00acf0
+      text:  "{players[1].score:0>2,}"
+    
+#############################################################
+# SHOW PLAYER:  play shows on events
+#############################################################
+
+show_player:
+
+    jackpot{current_player.number==1}:
+        show_jackpot_one:
+            speed: .5
+            loops: 0
+    jackpot{current_player.number==2}:
+        show_jackpot_two:
+            speed: .5
+            loops: 0
+
+    super_jackpot{current_player.number==1}:
+        show_super_jackpot_one:
+            speed: .5
+            loops: 0
+    super_jackpot{current_player.number==2}:
+        show_super_jackpot_two:
+            speed: .5
+            loops: 0
+
+    extra_ball_awarded{current_player.number==1}:
+        show_eb_one:
+            speed: .5
+            loops: 0
+
+    extra_ball_awarded{current_player.number==2}: 
+        show_eb_two:
+            speed: .5
+            loops: 0
+
+    right_inlane_hit:
+        spinner_flash:
+            loops: -1
+    
+    timer_spinner_timer_stopped:
+        spinner_flash:
+            action: stop
+
+    ball_save_bs_disabled:
+        shoot_again:
+            action: stop
+        shootagain_flash: 
+            loops: -1
+
+    multiball_greedo_insta_mb_started{current_player.number==1}:
+        show_greedo_one:
+            speed: .5
+            loops: 0
+    
+    multiball_greedo_insta_mb_started{current_player.number==2}:
+        show_greedo_two:
+            speed: .5
+            loops: 0
+
+    multiball_leia_insta_mb_started{current_player.number==1}:
+        show_leia_one:
+            speed: .5
+            loops: 0
+    
+    multiball_leia_insta_mb_started{current_player.number==2}:
+        show_leia_two:
+            speed: .5
+            loops: 0
+    
+    multiball_rescue_insta_mb_started{current_player.number==1}:
+        show_rescue_one:
+            speed: .5
+            loops: 0
+    
+    multiball_rescue_insta_mb_started{current_player.number==2}:
+        show_rescue_two:
+            speed: .5
+            loops: 0
+   
+    multiball_droid_mball_started{current_player.number==1}:
+        show_droid_one:
+            speed: .5
+            loops: 0
+    
+    multiball_droid_mball_started{current_player.number==2}:
+        show_droid_two:
+            speed: .5
+            loops: 0
+
+    multiball_deathstar_mball_started{current_player.number==1}:
+        show_deathstar_one:
+            speed: .5
+            loops: 0
+    
+    multiball_deathstar_mball_started{current_player.number==2}:
+        show_deathstar_two:
+            speed: .5
+            loops: 0
+
+    multiball_starwars_mball_started{current_player.number==1}:
+        show_starwars_one:
+            speed: .5
+            loops: 0
+    
+    multiball_starwars_mball_started{current_player.number==2}:
+        show_starwars_two:
+            speed: .5
+            loops: 0
+
+#############################################################
+# SHOWS
+#############################################################
+
+shows:
+
+    show_eb_one:
+    - time: 0
+      segment_displays:
+        lowerseg:
+            color: 00acf0
+            text: " "
+            priority: 1000
+            transition:
+                type: push
+                direction: left
+                text: "EXTRA BALL"
+
+
+    show_eb_two:
+    - time: 0
+      segment_displays:
+        upperseg:
+            color: 00acf0
+            text: " "
+            priority: 1000
+            transition:
+                type: push
+                direction: left
+                text: "EXTRA BALL"
+
+    show_jackpot_one:
+    - time: 0
+      segment_displays:
+        lowerseg:
+            color: 00acf0
+            text: " "
+            priority: 1000
+            transition:
+                type: push
+                direction: left
+                text: "JACKPOT"
+
+
+    show_jackpot_two:
+    - time: 0
+      segment_displays:
+        upperseg:
+            color: 00acf0
+            text: " "
+            priority: 1000
+            transition:
+                type: push
+                direction: left
+                text: "JACKPOT"
+
+    show_super_jackpot_one:
+    - time: 0
+      segment_displays:
+        lowerseg:
+            color: 00acf0
+            text: " "
+            priority: 1000
+            transition:
+                type: push
+                direction: left
+                text: "SUPER JACKPOT"
+
+
+    show_super_jackpot_two:
+    - time: 0
+      segment_displays:
+        upperseg:
+            color: 00acf0
+            text: " "
+            priority: 1000
+            transition:
+                type: push
+                direction: left
+                text: "SUPER JACKPOT"
+
+    show_greedo_one:
+    - time: 0
+      segment_displays:
+        lowerseg:
+            color: 00acf0
+            text: " "
+            priority: 1000
+            transition:
+                type: push
+                direction: left
+                text: "SHOOT FIRST MULTIBALL"
+
+
+    show_greedo_two:
+    - time: 0
+      segment_displays:
+        upperseg:
+            color: 00acf0
+            text: " "
+            priority: 1000
+            transition:
+                type: push
+                direction: left
+                text: "SHOOT FIRST MULTIBALL"
+
+    show_leia_one:
+    - time: 0
+      segment_displays:
+        lowerseg:
+            color: 00acf0
+            text: " "
+            priority: 1000
+            transition:
+                type: push
+                direction: left
+                text: "LEIA MULTIBALL"
+
+
+    show_leia_two:
+    - time: 0
+      segment_displays:
+        upperseg:
+            color: 00acf0
+            text: " "
+            priority: 1000
+            transition:
+                type: push
+                direction: left
+                text: "LEIA MULTIBALL"
+    
+    show_rescue_one:
+    - time: 0
+      segment_displays:
+        lowerseg:
+            color: 00acf0
+            text: " "
+            priority: 1000
+            transition:
+                type: push
+                direction: left
+                text: "RESCUE MULTIBALL"
+
+
+    show_rescue_two:
+    - time: 0
+      segment_displays:
+        upperseg:
+            color: 00acf0
+            text: " "
+            priority: 1000
+            transition:
+                type: push
+                direction: left
+                text: "RESCUE MULTIBALL"
+
+    show_deathstar_one:
+    - time: 0
+      segment_displays:
+        lowerseg:
+            color: 00acf0
+            text: " "
+            priority: 1000
+            transition:
+                type: push
+                direction: left
+                text: "DEATHSTAR MULTIBALL"
+
+
+    show_deathstar_two:
+    - time: 0
+      segment_displays:
+        upperseg:
+            color: 00acf0
+            text: " "
+            priority: 1000
+            transition:
+                type: push
+                direction: left
+                text: "DEATHSTAR MULTIBALL"
+    
+    show_droid_one:
+    - time: 0
+      segment_displays:
+        lowerseg:
+            color: 00acf0
+            text: " "
+            priority: 1000
+            transition:
+                type: push
+                direction: left
+                text: "DROID MULTIBALL"
+
+
+    show_droid_two:
+    - time: 0
+      segment_displays:
+        upperseg:
+            color: 00acf0
+            text: " "
+            priority: 1000
+            transition:
+                type: push
+                direction: left
+                text: "DROID MULTIBALL"
+
+    show_starwars_one:
+    - time: 0
+      segment_displays:
+        lowerseg:
+            color: 00acf0
+            text: " "
+            priority: 1000
+            transition:
+                type: push
+                direction: left
+                text: "STAR WARS MULTIBALL"
+
+
+    show_starwars_two:
+    - time: 0
+      segment_displays:
+        upperseg:
+            color: 00acf0
+            text: " "
+            priority: 1000
+            transition:
+                type: push
+                direction: left
+                text: "STAR WARS MULTIBALL"
+
+    show_flash:
+    - duration: .25
+      lights:
+        (led): (color1)
+    - duration: .25
+      lights:
+        (led): off
+
+    shoot_again:
+    - time: 0
+      lights:
+        l_shootagain: f5f5f5
+      duration: -1
+
+    shootagain_flash:
+    - duration: .25
+      lights:
+        l_shootagain: f5f5f5
+    - duration: .25
+      lights:
+        l_shootagain: off
+    
+    spinner_flash:
+    - duration: .25
+      lights:
+        l_spinner: f5f5f5
+    - duration: .25
+      lights:
+        l_spinner: off
+

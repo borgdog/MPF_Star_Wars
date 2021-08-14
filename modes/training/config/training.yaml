@@ -1,0 +1,153 @@
+#config_version=5
+# STAR WARS
+#
+
+mode:
+    start_events:  
+        - ball_starting
+    
+    priority: 100
+
+
+#############################################################
+#  SHOTS
+#############################################################    
+
+shots:
+    training_1:
+        switch: s_advance_1
+        profile: p_train
+        show_tokens:
+            led: l_advance_1
+    training_2:
+        switch: s_advance_2
+        advance_events: mode_training_started{current_player.ball==1}
+        profile: p_train
+        show_tokens:
+            led: l_advance_2
+    training_3:
+        switch: s_advance_3
+        profile: p_train
+        show_tokens:
+            led: l_advance_3
+    training_4:
+        switch: s_advance_4
+        profile: p_train
+        show_tokens:
+            led: l_advance_4
+    training_5:
+        switch: s_advance_5
+        profile: p_train
+        advance_events: mode_training_started{current_player.ball==1}
+        show_tokens:
+            led: l_advance_5
+    training_6:
+        switch: s_advance_6
+        profile: p_train
+        show_tokens:
+            led: l_advance_6
+
+
+#############################################################
+# SHOT GROUPS
+#############################################################
+
+shot_groups:
+
+    train:
+        shots:
+            - training_1
+            - training_2
+            - training_3
+            - training_4
+            - training_5
+            - training_6
+        rotate_events:
+            - dingwalls_hit
+            - left_sling_hit
+            - train_lit_hit
+        enable_events:
+            - ball_started
+        disable_events:
+            - ball_ending
+
+
+#############################################################
+# SHOT PROFILES
+#############################################################
+
+shot_profiles:
+  p_train:
+    advance_on_hit: false
+    states:
+      - name: unlit
+        show: "off"
+      - name: lit
+        show: "on"
+
+#######################################################################
+#                                     COUNTERS                         
+#######################################################################
+
+counters:
+    swtraining:
+        count_events: 
+            - train_lit_hit
+        starting_count: 0        
+        count_complete_value: 6  
+        direction: up
+        persist_state: true
+        reset_on_complete: false
+        disable_on_complete: true
+        restart_events: reset_missions
+
+
+#############################################################
+# EVENT PLAYER:
+#############################################################
+
+event_player:
+    train_lit_hit: score_2hund
+    train_unlit_hit: score_hund
+    logicblock_swtraining_count_complete{device.multiballs.starwars_mball.balls_added_live > 0}:       #superjackpot during starwars multiball
+        super_jackpot:
+
+#############################################################
+# LIGHT PLAYER:  light it up on events
+#############################################################
+    
+
+light_player:
+    logicblock_swtraining_updated{value==1}: 
+        l_train_1: on
+    logicblock_swtraining_updated{value==2}: 
+        l_train_2: on
+    logicblock_swtraining_updated{value==3}: 
+        l_train_3: on
+    logicblock_swtraining_updated{value==4}: 
+        l_train_4: on
+    logicblock_swtraining_updated{value==5}: 
+        l_train_5: on
+    logicblock_swtraining_updated{value==6}: 
+        l_train_6: on
+
+    mode_training_started{devices.counters.swtraining.value>=1}: 
+        l_train_1: on
+    mode_training_started{devices.counters.swtraining.value>=2}: 
+        l_train_2: on
+    mode_training_started{devices.counters.swtraining.value>=3}: 
+        l_train_3: on
+    mode_training_started{devices.counters.swtraining.value>=4}: 
+        l_train_4: on
+    mode_training_started{devices.counters.swtraining.value>=5}: 
+        l_train_5: on
+    mode_training_started{devices.counters.swtraining.value>=6}: 
+        l_train_6: on
+    
+    reset_missions:
+        l_train_1: off
+        l_train_2: off
+        l_train_3: off
+        l_train_4: off
+        l_train_5: off
+        l_train_6: off
