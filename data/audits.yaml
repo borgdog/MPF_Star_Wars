@@ -1,11 +1,12 @@
 events:
-  game_ended: 0
+  game_ended: 1
   game_started: 1
 player:
   score:
-    average: 39834.30379746834
+    average: 42191.999999999985
     top:
     - 841780
+    - 228450
     - 134420
     - 117430
     - 107420
@@ -14,89 +15,88 @@ player:
     - 82800
     - 78020
     - 72810
-    - 71670
-    total: 79
+    total: 80
 shots:
-  dingwalls: 313
-  drop_1: 156
-  drop_2: 157
-  drop_3: 168
-  drop_4: 170
-  drop_5: 170
-  ds_target: 60
+  dingwalls: 332
+  drop_1: 160
+  drop_2: 161
+  drop_3: 171
+  drop_4: 173
+  drop_5: 173
+  ds_target: 62
   extra_ball: 9
-  greedo_drop: 134
-  left_inlane: 352
+  greedo_drop: 136
+  left_inlane: 360
   left_outlane: 87
-  left_sling: 224
-  leia_1: 84
-  leia_2: 62
-  leia_3: 73
-  leia_4: 48
-  plans_1: 278
-  plans_2: 285
-  plans_3: 315
-  pop_1: 624
-  pop_2: 510
+  left_sling: 236
+  leia_1: 85
+  leia_2: 67
+  leia_3: 76
+  leia_4: 49
+  plans_1: 282
+  plans_2: 286
+  plans_3: 319
+  pop_1: 651
+  pop_2: 516
   r_drop_1: 5
   r_drop_2: 4
   r_drop_3: 9
   r_drop_4: 15
   r_drop_5: 18
-  right_inlane: 157
-  right_outlane: 22
+  right_inlane: 164
+  right_outlane: 24
   skill_l: 23
   skill_m: 16
   skill_r: 6
   skill_shot_l: 88
   skill_shot_m: 184
   skill_shot_r: 133
-  training_1: 208
-  training_2: 280
-  training_3: 226
-  training_4: 545
-  training_5: 568
-  training_6: 620
+  training_1: 214
+  training_2: 286
+  training_3: 230
+  training_4: 559
+  training_5: 577
+  training_6: 646
 switches:
-  s_advance_1: 210
-  s_advance_2: 284
-  s_advance_3: 228
-  s_advance_4: 551
-  s_advance_5: 569
-  s_advance_6: 626
-  s_dingwalls: 314
-  s_droid_lock: 94
+  s_advance_1: 216
+  s_advance_2: 290
+  s_advance_3: 232
+  s_advance_4: 565
+  s_advance_5: 578
+  s_advance_6: 652
+  s_dingwalls: 333
+  s_droid_lock: 102
   s_ds_lock: 47
-  s_ds_loop: 352
-  s_ds_target: 61
-  s_greedo: 460
+  s_ds_loop: 370
+  s_ds_target: 63
+  s_greedo: 462
   s_jam: 0
-  s_l_inlane: 353
+  s_l_inlane: 361
   s_l_outlane: 87
-  s_left_flipper: 1835
-  s_left_sling: 225
-  s_leia_1: 89
-  s_leia_2: 64
-  s_leia_3: 74
-  s_leia_4: 48
-  s_plans_1: 376
-  s_plans_2: 420
-  s_plans_3: 381
-  s_pop_1: 629
-  s_pop_2: 519
-  s_r_inlane: 158
-  s_r_outlane: 22
-  s_rescue_1: 164
-  s_rescue_2: 163
-  s_rescue_3: 180
-  s_rescue_4: 188
-  s_rescue_5: 190
-  s_right_flipper: 2217
-  s_shooter: 1499
-  s_spinner: 3775
+  s_left_flipper: 1961
+  s_left_sling: 237
+  s_leia_1: 90
+  s_leia_2: 69
+  s_leia_3: 77
+  s_leia_4: 49
+  s_plans_1: 380
+  s_plans_2: 421
+  s_plans_3: 385
+  s_pop_1: 656
+  s_pop_2: 525
+  s_r_inlane: 165
+  s_r_outlane: 24
+  s_rescue_1: 168
+  s_rescue_2: 167
+  s_rescue_3: 183
+  s_rescue_4: 191
+  s_rescue_5: 193
+  s_right_flipper: 2364
+  s_shooter: 1509
+  s_spinner: 4002
   s_start: 37
   s_tilt_bob: 49
-  s_trough_1: 565
-  s_trough_2: 291
-  s_trough_3: 241
-  s_trough_4: 191
+  s_trough_1: 574
+  s_trough_2: 300
+  s_trough_3: 250
+  s_trough_4: 200
