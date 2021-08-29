@@ -1,5 +1,5 @@
 events:
-  game_ended: 1
+  game_ended: 0
   game_started: 1
 player:
   score:
@@ -25,8 +25,8 @@ shots:
   drop_5: 173
   ds_target: 62
   extra_ball: 9
-  greedo_drop: 136
-  left_inlane: 360
+  greedo_drop: 138
+  left_inlane: 382
   left_outlane: 87
   left_sling: 236
   leia_1: 85
@@ -34,8 +34,8 @@ shots:
   leia_3: 76
   leia_4: 49
   plans_1: 282
-  plans_2: 286
-  plans_3: 319
+  plans_2: 287
+  plans_3: 324
   pop_1: 651
   pop_2: 516
   r_drop_1: 5
@@ -49,8 +49,8 @@ shots:
   skill_m: 16
   skill_r: 6
   skill_shot_l: 88
-  skill_shot_m: 184
-  skill_shot_r: 133
+  skill_shot_m: 185
+  skill_shot_r: 138
   training_1: 214
   training_2: 286
   training_3: 230
@@ -69,9 +69,9 @@ switches:
   s_ds_lock: 47
   s_ds_loop: 370
   s_ds_target: 63
-  s_greedo: 462
+  s_greedo: 497
   s_jam: 0
-  s_l_inlane: 361
+  s_l_inlane: 384
   s_l_outlane: 87
   s_left_flipper: 1961
   s_left_sling: 237
@@ -80,8 +80,8 @@ switches:
   s_leia_3: 77
   s_leia_4: 49
   s_plans_1: 380
-  s_plans_2: 421
-  s_plans_3: 385
+  s_plans_2: 422
+  s_plans_3: 390
   s_pop_1: 656
   s_pop_2: 525
   s_r_inlane: 165
@@ -92,7 +92,7 @@ switches:
   s_rescue_4: 191
   s_rescue_5: 193
   s_right_flipper: 2364
-  s_shooter: 1509
+  s_shooter: 1535
   s_spinner: 4002
   s_start: 37
   s_tilt_bob: 49

@@ -53,44 +53,37 @@ show_player:
 #############################################################
 
 shows:
-
     greedo_attract:
-    - duration: .2
-      lights:
-          l_greedo_1: f5f5f5
-    - duration: .2
-      lights:
-          l_greedo_1: off
-          l_greedo_2: f5f5f5
-    - duration: .2
-      lights:
-          l_greedo_2: off
-          l_greedo_3: f5f5f5
-    - duration: .2
-      lights:
-          l_greedo_3: off
-          l_greedo_1: f5f5f5
-    - duration: .2
-      lights:
-          l_greedo_1: off
-          l_greedo_2: f5f5f5
-    - duration: .2
-      lights:
-          l_greedo_2: off
-          l_greedo_3: f5f5f5
-    - duration: .2
-      lights:
-          l_greedo_3: off
-          l_greedo_1: f5f5f5
-    - duration: .2
-      lights:
-          l_greedo_1: off
-          l_greedo_2: f5f5f5
-    - duration: .2
-      lights:
-          l_greedo_2: off
-          l_greedo_3: f5f5f5
-    - duration: .2
-      lights:
-          l_greedo_3: off
+    #   - time: 0
+    #     flashers:
+    #         l_greedo_1: 250ms
+    #   - time: 200ms
+    #     flashers:
+    #         l_greedo_2: 250ms
+    #   - time: 400ms
+    #     flashers:
+    #         l_greedo_3: 250ms
+    #   - time: 600ms
+    #     flashers:
+    #         l_shoot_first: 250ms
+    #   - duration: 200ms
 
+
+    - duration: .2
+      lights:
+          l_shoot_first: off
+          l_greedo_1: f5f5f5
+    - duration: .2
+      lights:
+          l_greedo_1: off
+          l_greedo_2: f5f5f5
+    - duration: .2
+      lights:
+          l_greedo_2: off
+          l_greedo_3: f5f5f5
+    - duration: .2
+      lights:
+          l_greedo_3: off
+          l_shoot_first: f5f5f5
+ 
+   
