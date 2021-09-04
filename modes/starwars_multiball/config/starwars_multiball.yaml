@@ -34,7 +34,7 @@ light_player:
 
     multiball_starwars_mball_started:
         l_droid_lock: off
-        l_tractor_beam: off
+        l_spinner: off
 
 
 #############################################################

@@ -32,9 +32,9 @@ multiballs:
 light_player:
 
     multiball_lock_deathstar_locked_ball:
-        l_tractor_beam: on
+        l_spinner: on
     multiball_deathstar_mball_started:
-        l_tractor_beam: off
+        l_spinner: off
 
 
 #############################################################
@@ -47,8 +47,8 @@ show_player:
         show_flash:
             key: ds_flash
             show_tokens:
-                led: l_tractor_beam 
-                color1: f5f5f5
+                led: l_spinner 
+                color1: red
 
     multiball_lock_deathstar_full:
         show_flash:

@@ -29,3 +29,36 @@ timers:
             - event: mode_spinnertimer_started
               action: start
  
+
+#############################################################
+# SHOW PLAYER:  
+#############################################################
+
+show_player:
+    mode_spinnertimer_started: spinner_attract
+
+
+#############################################################
+# SHOWS
+#############################################################
+
+shows:
+    spinner_attract:
+
+    - duration: .2
+      lights:
+          l_spinner: off
+          l_escape_1: f5f5f5
+    - duration: .2
+      lights:
+          l_escape_1: off
+          l_escape_2: f5f5f5
+    - duration: .2
+      lights:
+          l_escape_2: off
+          l_escape_3: f5f5f5
+    - duration: .2
+      lights:
+          l_escape_3: off
+          l_spinner: f5f5f5
+

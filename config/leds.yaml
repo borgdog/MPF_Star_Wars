@@ -67,10 +67,6 @@ lights:
         # type: grb
         number: 15
         default_on_color: f5f5f5
-    l_tractor_beam:
-        # type: grb
-        number: 16
-        default_on_color: f5f5f5
     l_spinner:
         # type: grb
         number: 17

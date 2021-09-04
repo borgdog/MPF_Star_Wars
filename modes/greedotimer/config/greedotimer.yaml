@@ -54,20 +54,6 @@ show_player:
 
 shows:
     greedo_attract:
-    #   - time: 0
-    #     flashers:
-    #         l_greedo_1: 250ms
-    #   - time: 200ms
-    #     flashers:
-    #         l_greedo_2: 250ms
-    #   - time: 400ms
-    #     flashers:
-    #         l_greedo_3: 250ms
-    #   - time: 600ms
-    #     flashers:
-    #         l_shoot_first: 250ms
-    #   - duration: 200ms
-
 
     - duration: .2
       lights:
