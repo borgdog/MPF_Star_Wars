@@ -18,24 +18,24 @@ player:
     total: 80
 shots:
   dingwalls: 332
-  drop_1: 161
-  drop_2: 162
-  drop_3: 172
-  drop_4: 174
-  drop_5: 174
-  ds_target: 62
-  extra_ball: 9
+  drop_1: 163
+  drop_2: 165
+  drop_3: 174
+  drop_4: 176
+  drop_5: 176
+  ds_target: 66
+  extra_ball: 11
   greedo_drop: 138
-  left_inlane: 382
+  left_inlane: 383
   left_outlane: 87
   left_sling: 236
   leia_1: 85
   leia_2: 67
   leia_3: 76
   leia_4: 49
-  plans_1: 283
-  plans_2: 288
-  plans_3: 325
+  plans_1: 285
+  plans_2: 292
+  plans_3: 327
   pop_1: 651
   pop_2: 516
   r_drop_1: 5
@@ -49,29 +49,29 @@ shots:
   skill_m: 16
   skill_r: 6
   skill_shot_l: 88
-  skill_shot_m: 185
-  skill_shot_r: 139
-  training_1: 216
-  training_2: 288
-  training_3: 232
+  skill_shot_m: 187
+  skill_shot_r: 140
+  training_1: 220
+  training_2: 292
+  training_3: 237
   training_4: 559
   training_5: 577
-  training_6: 649
+  training_6: 657
 switches:
-  s_advance_1: 218
-  s_advance_2: 292
-  s_advance_3: 234
+  s_advance_1: 222
+  s_advance_2: 296
+  s_advance_3: 239
   s_advance_4: 565
   s_advance_5: 578
-  s_advance_6: 655
+  s_advance_6: 663
   s_dingwalls: 333
-  s_droid_lock: 102
-  s_ds_lock: 47
-  s_ds_loop: 374
-  s_ds_target: 63
-  s_greedo: 498
+  s_droid_lock: 104
+  s_ds_lock: 49
+  s_ds_loop: 380
+  s_ds_target: 67
+  s_greedo: 501
   s_jam: 0
-  s_l_inlane: 384
+  s_l_inlane: 385
   s_l_outlane: 87
   s_left_flipper: 1961
   s_left_sling: 237
@@ -79,24 +79,24 @@ switches:
   s_leia_2: 69
   s_leia_3: 77
   s_leia_4: 49
-  s_plans_1: 381
-  s_plans_2: 423
-  s_plans_3: 391
+  s_plans_1: 383
+  s_plans_2: 427
+  s_plans_3: 393
   s_pop_1: 656
   s_pop_2: 525
   s_r_inlane: 167
   s_r_outlane: 24
-  s_rescue_1: 169
-  s_rescue_2: 168
-  s_rescue_3: 184
-  s_rescue_4: 192
-  s_rescue_5: 194
+  s_rescue_1: 171
+  s_rescue_2: 171
+  s_rescue_3: 186
+  s_rescue_4: 194
+  s_rescue_5: 196
   s_right_flipper: 2364
-  s_shooter: 1539
-  s_spinner: 4002
+  s_shooter: 1555
+  s_spinner: 4004
   s_start: 37
   s_tilt_bob: 49
-  s_trough_1: 575
-  s_trough_2: 300
-  s_trough_3: 250
+  s_trough_1: 577
+  s_trough_2: 302
+  s_trough_3: 252
   s_trough_4: 200

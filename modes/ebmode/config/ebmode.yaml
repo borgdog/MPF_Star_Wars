@@ -3,13 +3,9 @@
 
 mode:
     start_events: 
-        # - multiball_deathstar_mball_started
-        # - multiball_droid_mball_started
         - multiball_starwars_mball_started
     stop_events: 
         - extra_ball_awarded
-        # - multiball_droid_mball_ended
-        # - multiball_deathstar_mball_ended
         - multiball_starwars_mball_ended
     priority: 500
 
