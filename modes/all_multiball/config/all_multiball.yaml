@@ -2,8 +2,8 @@
 # STAR WARS
 
 mode:
-    start_events: 
-        - ball_started
+    start_events: ball_starting
+    stop_events: ball_ending
        
     priority: 500
 
@@ -86,21 +86,29 @@ state_machines:
     
         transitions:
             - source: start
+              target: deathstar_mb_enabled
+              events: deathstar_lock_enabled{device.ball_devices.bd_deathstar.balls == 1}
+            
+            - source: start
+              target: droid_mb_enabled
+              events: droid_lock_enabled{device.ball_devices.bd_droid.balls == 1}
+
+            - source: start
               target: droid_lock_ready
-              events: droid_lock_enabled
+              events: droid_lock_enabled{device.ball_devices.bd_droid.balls == 0}
 
             - source: start
               target: deathstar_lock_ready
-              events: deathstar_lock_enabled
+              events: deathstar_lock_enabled{device.ball_devices.bd_deathstar.balls == 0}
 
             - source: droid_lock_ready
               target: droid_mb_enabled
               events: multiball_lock_droid_full
-
+            
             - source: deathstar_lock_ready
               target: deathstar_mb_enabled
               events: multiball_lock_deathstar_full
-
+            
             - source: droid_mb_enabled
               target: starwars_mb_enabled
               events: multiball_lock_deathstar_full

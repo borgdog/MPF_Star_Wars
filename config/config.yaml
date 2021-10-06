@@ -196,8 +196,10 @@ diverters:
         enable_events: ball_starting
         activate_events: 
             - open_bash
+            - ball_started{device.state_machines.multiballs.state=="droid_mb_enabled" or device.state_machines.multiballs.state=="deathstar_mb_enabled" or device.state_machines.multiballs.state=="starwars_mb_enabled"}
         deactivate_events: 
             - close_bash
+            - ball_ending
 
 
 

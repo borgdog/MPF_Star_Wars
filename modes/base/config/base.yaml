@@ -339,7 +339,7 @@ achievement_groups:
         events_when_all_completed:
             - deathstar_lock_enabled
         disable_events:
-            - deathstar_lock_enabled
+            # - deathstar_lock_enabled
         # enable_while_no_achievement_started: false
         enable_events:
             - reset_missions
@@ -351,7 +351,7 @@ achievement_groups:
         events_when_all_completed:
             - droid_lock_enabled
         disable_events:
-            - droid_lock_enabled
+            # - droid_lock_enabled
         # enable_while_no_achievement_started: false
         enable_events:
             - reset_missions
@@ -363,7 +363,7 @@ achievement_groups:
         events_when_all_completed:
             - droid_lock_enabled
         disable_events:
-            - droid_lock_enabled
+            # - droid_lock_enabled
         # enable_while_no_achievement_started: false
         enable_events:
             - reset_missions
@@ -375,7 +375,7 @@ achievement_groups:
         events_when_all_completed:
             - droid_lock_enabled
         disable_events:
-            - droid_lock_enabled
+            # - droid_lock_enabled
         # enable_while_no_achievement_started: false
         enable_events:
             - reset_missions
