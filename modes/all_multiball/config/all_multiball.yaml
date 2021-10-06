@@ -103,6 +103,34 @@ state_machines:
 
             - source: droid_lock_ready
               target: droid_mb_enabled
+              events: mode_all_multiball_started{device.ball_devices.bd_droid.balls == 1}
+            
+            - source: deathstar_lock_ready
+              target: deathstar_mb_enabled
+              events: mode_all_multiball_started{device.ball_devices.bd_deathstar.balls == 1}
+            
+            - source: droid_mb_enabled
+              target: droid_lock_ready
+              events: mode_all_multiball_started{device.ball_devices.bd_droid.balls == 0}
+
+            - source: deathstar_mb_enabled
+              target: deathstar_lock_ready
+              events: mode_all_multiball_started{device.ball_devices.bd_deathstar.balls == 0}
+
+            - source: starwars_mb_enabled
+              target: droid_lock_ready
+              events: mode_all_multiball_started{device.ball_devices.bd_droid.balls == 0 and device.ball_devices.bd_deathstar.balls == 0}  
+
+            - source: starwars_mb_enabled
+              target: deathstar_mb_enabled
+              events: mode_all_multiball_started{device.ball_devices.bd_droid.balls == 0}  
+
+            - source: starwars_mb_enabled
+              target: droid_mb_enabled
+              events: mode_all_multiball_started{device.ball_devices.bd_deathstar.balls == 0} 
+
+            - source: droid_lock_ready
+              target: droid_mb_enabled
               events: multiball_lock_droid_full
             
             - source: deathstar_lock_ready
