@@ -42,7 +42,7 @@
     upperseg:
       flashing: off
       color: 00acf0
-      text: "HS  {machine.score1_name}"
+      text: "HIGH SC" #{machine.score1_name}"
 
     lowerseg:
       flashing: off

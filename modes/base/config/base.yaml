@@ -51,18 +51,6 @@ score_queue_player:
 #############################################################
 
 event_player:
-    ds_target_hit{device.multiballs.deathstar_mball.enabled and not device.multiballs.droid_mball.enabled}:  
-        - start_ds_multiball
-    ds_target_hit{device.multiballs.droid_mball.enabled and not device.multiballs.deathstar_mball.enabled}:
-        - start_droid_multiball
-    ds_target_hit{device.multiballs.droid_mball.enabled and device.multiballs.deathstar_mball.enabled}:
-        - start_starwars_multiball
-    multiball_droid_mball_started:
-        - reset_missions
-    multiball_deathstar_mball_started:
-        - reset_missions
-    multiball_starwars_mball_started:
-        - reset_missions
     dingwalls_hit:
         score_ten
     pop_1_hit{device.counters.super_droid.completed}:
@@ -349,9 +337,9 @@ achievement_groups:
             - rescue
             - deliver
         events_when_all_completed:
-            - ds_lock_enabled
+            - deathstar_lock_enabled
         disable_events:
-            - ds_lock_enabled
+            - deathstar_lock_enabled
         # enable_while_no_achievement_started: false
         enable_events:
             - reset_missions
@@ -462,11 +450,11 @@ show_player:
             speed: .5
             loops: 0
     
-    ball_save_bs_disabled:
-        shoot_again:
-            action: stop
-        shootagain_flash: 
-            loops: -1
+    # ball_save_bs_disabled:
+    #     shoot_again:
+    #         action: stop
+    #     shootagain_flash: 
+    #         loops: -1
 
     multiball_greedo_insta_mb_started{current_player.number==1}:
         show_greedo_one:

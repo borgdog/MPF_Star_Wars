@@ -43,16 +43,14 @@ modes:
     - escape
     - deliver
     - spinnertimer
-    - droid_multiball
-    - ds_multiball
-    - starwars_multiball
+    - all_multiball
     - dt_bank
     - r2d2
     - super_spinner
     - ebmode
     - tilt
     - endofgame
-    # - high_score
+    - high_score
        
 game:
     balls_per_game: 3
@@ -61,7 +59,10 @@ game:
 player_vars:
     mission_count:
         initial_value: 0
-
+    initials:
+        value_type: str
+        initial_value: RIF
+        
 machine:
   balls_installed: 4
   min_balls: 1
@@ -74,6 +75,7 @@ playfields:
         default_source_device: bd_plunger
         tags: default
 
+#
 ball_devices:
     bd_trough:
         ball_switches: s_trough_1, s_trough_2, s_trough_3, s_trough_4, s_jam
@@ -105,6 +107,7 @@ ball_devices:
         eject_timeouts: 3s
         mechanical_eject: true
 
+#
 extra_ball_groups:
     main:
         max_per_ball: 1
@@ -147,7 +150,7 @@ drop_target_banks:
         reset_events:
             - ball_starting{game.num_players>1 or current_player.ball == 1} 
             
-
+#
 flippers:
     left_flipper:
         main_coil: c_left_flipper
@@ -156,6 +159,10 @@ flippers:
         main_coil: c_right_flipper
         activation_switch: s_right_flipper
 
+#############################################################
+# DIVERTERS
+#############################################################
+
 diverters:
     ds_diverter:                        #### activate opens diverter to deathstar lock
         activation_coil: c_ds_diverter
@@ -163,7 +170,7 @@ diverters:
         enable_events: ball_starting
         activate_events: 
             - balldevice_bd_deathstar_ejecting_ball
-            - ds_lock_enabled{device.ball_devices.bd_deathstar.balls == 0}
+            - deathstar_lock_enabled{device.ball_devices.bd_deathstar.balls == 0}
         deactivate_events: 
             - balldevice_bd_deathstar_ball_eject_success
             - multiball_lock_deathstar_locked_ball
@@ -183,18 +190,22 @@ diverters:
             - mode_skill_shot_stopped{device.achievements.deliver.state == "started"}
             - ball_ending
     
-    bash_diverter:
+    bash_diverter:                      #### opens bash bank to expose portal ball
         activation_coil: c_bash
         type: hold
         enable_events: ball_starting
         activate_events: 
-            - multiball_lock_deathstar_locked_ball
-            - multiball_lock_droid_locked_ball
+            - open_bash
         deactivate_events: 
-            - multiball_droid_mball_started 
-            - multiball_deathstar_mball_started 
-            - multiball_starwars_mball_ended
-            - extra_ball_awarded
+            - close_bash
+
+
+
+timed_switches:
+  game_cancel:
+    switch_tags: start
+    time: 5s
+    events_when_active: end_game
 
 #############################################################
 # SPINNER
@@ -218,12 +229,12 @@ show_player:
             loops: 0
 
     extra_ball_awarded:
-        shootagain_flash:
+        shoot_again:
             loops: -1
             key: exball
 
     mode_skill_shot_stopped:
-        shootagain_flash:
+        shoot_again:
             key: exball
             action: stop
 

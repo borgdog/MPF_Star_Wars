@@ -36,7 +36,7 @@ coils:
         default_hold_power: 0.15
     c_trough:
         number: 10
-        default_pulse_ms: 200
+        default_pulse_ms: 100
     c_shooter:
         number: 11
         default_pulse_ms: 200

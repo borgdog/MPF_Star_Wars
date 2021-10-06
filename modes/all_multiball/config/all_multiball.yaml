@@ -1,0 +1,231 @@
+#config_version=5
+# STAR WARS
+
+mode:
+    start_events: 
+        - ball_started
+       
+    priority: 500
+
+multiball_locks:
+    droid:
+        balls_to_lock: 1
+        lock_devices: bd_droid
+        locked_ball_counting_strategy: physical_only
+        enable_events: droid_lock_enabled
+        disable_events: 
+            - droid_lock_disabled
+    deathstar:
+        balls_to_lock: 1
+        lock_devices: bd_deathstar
+        locked_ball_counting_strategy: physical_only
+        enable_events: deathstar_lock_enabled
+        disable_events: 
+            - deathstar_lock_disabled
+
+#############################################################
+# MULTIBALLS     yeah baby!!!
+#############################################################
+
+multiballs:
+    droid_mball:
+        ball_count: 1
+        ball_count_type: add
+        shoot_again: 10s
+        ball_locks: bd_droid
+        start_events: start_droid_multiball
+    deathstar_mball:
+        ball_count: 1
+        ball_count_type: add
+        shoot_again: 10s
+        ball_locks: bd_deathstar
+        start_events: start_deathstar_multiball
+    starwars_mball:    #### multiball when both deathstar and droid are locked
+        ball_count: 2
+        ball_count_type: add
+        shoot_again: 10s
+        ball_locks: bd_droid, bd_deathstar
+        start_events: start_starwars_multiball
+
+#############################################################
+# STATE MACHINE       control of multiballs
+#############################################################
+
+state_machines:
+    multiballs:
+        persist_state: true
+        states:
+            start:
+                label: Locks not enabled
+            droid_lock_ready:
+                label: Droid lock enabled
+            deathstar_lock_ready:
+                label: deathstar lock enabled
+            droid_mb_enabled:
+                label: droid multiball can be started
+                events_when_started: open_bash
+            deathstar_mb_enabled:
+                label: droid multiball can be started
+                events_when_started: open_bash
+            starwars_mb_enabled:
+                label: starwars multiball can be started
+            droid_running:
+                label: droid multiball running
+                events_when_started: start_droid_multiball, reset_missions, close_bash, deathstar_lock_disabled
+            deathstar_running:
+                label: deathstar multiball running
+                events_when_started: start_deathstar_multiball, reset_missions, close_bash, droid_lock_disabled
+            starwars_running:
+                label: starwars multiball running
+                events_when_started: start_starwars_multiball, reset_missions, droid_lock_disabled, deathstar_lock_disabled
+                events_when_stopped: close_bash
+            deathstar_destroyed:
+                label: extra ball awarded
+                events_when_started: close_bash
+                
+    
+        transitions:
+            - source: start
+              target: droid_lock_ready
+              events: droid_lock_enabled
+
+            - source: start
+              target: deathstar_lock_ready
+              events: deathstar_lock_enabled
+
+            - source: droid_lock_ready
+              target: droid_mb_enabled
+              events: multiball_lock_droid_full
+
+            - source: deathstar_lock_ready
+              target: deathstar_mb_enabled
+              events: multiball_lock_deathstar_full
+
+            - source: droid_mb_enabled
+              target: starwars_mb_enabled
+              events: multiball_lock_deathstar_full
+
+            - source: deathstar_mb_enabled
+              target: starwars_mb_enabled
+              events: multiball_lock_droid_full
+
+            - source: droid_mb_enabled
+              target: droid_running
+              events: ds_target_hit
+            
+            - source: deathstar_mb_enabled
+              target: deathstar_running
+              events: ds_target_hit
+            
+            - source: starwars_mb_enabled
+              target: starwars_running
+              events: ds_target_hit
+
+            - source: droid_running
+              target: start
+              events: multiball_droid_mball_ended
+            
+            - source: deathstar_running
+              target: start
+              events: multiball_deathstar_mball_ended
+
+            - source: starwars_running
+              target: start
+              events: multiball_starwars_mball_ended
+            
+            - source: starwars_running
+              target: deathstar_destroyed
+              events: ds_target_hit
+            
+            - source: deathstar_destroyed
+              target: start
+              events: multiball_starwars_mball_ended
+
+            
+
+#############################################################
+# LIGHT PLAYER:  set lights on events
+#############################################################
+
+light_player:
+
+    multiball_lock_droid_locked_ball:
+        l_droid_lock: on
+    multiball_droid_mball_started:
+        l_droid_lock: off
+    multiball_lock_deathstar_locked_ball:
+        l_spinner: on
+    multiball_deathstar_mball_started:
+        l_spinner: off
+    multiball_starwars_mball_started:
+        l_droid_lock: off
+        l_spinner: off
+
+
+#############################################################
+# SHOW PLAYER:  set lights on events
+#############################################################
+
+show_player:
+
+    droid_lock_enabled{device.ball_devices.bd_droid.balls == 0}: 
+        show_flash:
+            key: droid_flash
+            show_tokens:
+                led: l_droid_lock 
+                color1: f5f5f5
+
+    multiball_lock_droid_full:
+        show_flash:
+            key: droid_flash
+            action: stop
+
+    deathstar_lock_enabled{device.ball_devices.bd_deathstar.balls == 0}: 
+        show_flash:
+            key: ds_flash
+            show_tokens:
+                led: l_spinner 
+                color1: red
+
+    multiball_lock_deathstar_full:
+        show_flash:
+            key: ds_flash
+            action: stop
+
+    multiball_droid_mball_started:
+        mb_ball_save:
+            action: play
+
+    multiball_droid_mball_shoot_again_ended:
+        mb_ball_save:
+            action: stop
+    
+    multiball_starwars_mball_started:
+        mb_ball_save:
+            action: play
+
+    multiball_starwars_mball_shoot_again_ended:
+        mb_ball_save:
+            action: stop
+    
+    multiball_deathstar_mball_started:
+        mb_ball_save:
+            action: play
+    
+    multiball_deathstar_mball_shoot_again_ended:
+        mb_ball_save:
+            action: stop
+
+#############################################################
+# SHOWS
+#############################################################
+
+shows:
+       
+    mb_ball_save:
+        - duration: .25
+          lights:
+              l_shootagain: f5f5f5
+        - duration: .25
+          lights:
+              l_shootagain: off
