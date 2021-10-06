@@ -9,8 +9,6 @@ config:
     - coils.yaml
     - switches.yaml
     - displays.yaml
-    - keys.yaml
-    # - servos.yaml
 
 hardware:
     # platform: OPP
