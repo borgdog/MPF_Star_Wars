@@ -48,3 +48,34 @@
       flashing: off
       color: 00acf0
       text:  "{machine.score1_value:,d}"
+
+- duration: 1
+  segment_displays:
+    upperseg:
+      flashing: off
+      color: 00acf0
+      text: "       "
+
+    lowerseg:
+      flashing: off
+      color: 00acf0
+      text:  "       "
+
+- duration: 2
+  segment_displays:
+
+    upperseg:
+        color: 00acf0
+        text: " "
+        transition:
+            type: push
+            direction: left
+            text: "JUST SAY NO"
+
+    lowerseg:
+        color: 00acf0
+        text: " "
+        transition:
+            type: push
+            direction: left
+            text: "     TO DRUGS"
