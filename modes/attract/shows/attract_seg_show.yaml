@@ -13,7 +13,37 @@
       color: 00acf0
       text: "  START"
 
-- duration: 4
+- duration: 500ms
+  segment_displays:
+    upperseg:
+      flashing: off
+      color: 00acf0
+      text: "       "
+
+    lowerseg:
+      flashing: off
+      color: 00acf0
+      text:  "       "
+
+- duration: 3
+  segment_displays:
+    upperseg:
+      color: 00acf0
+      text: " "
+      transition:
+        type: push
+        direction: left
+        text: "ONLY LOSERS"
+
+    lowerseg:
+      color: 00acf0
+      text: " "
+      transition:
+        type: push
+        direction: left
+        text: "      USE DRUGS"
+
+- duration: 3
   segment_displays:
     upperseg:
       flashing: off
@@ -37,7 +67,7 @@
       color: 00acf0
       text: "  START"
 
-- duration: 4
+- duration: 3
   segment_displays:
     upperseg:
       flashing: off
@@ -49,7 +79,7 @@
       color: 00acf0
       text:  "{machine.score1_value:,d}"
 
-- duration: 1
+- duration: 500ms
   segment_displays:
     upperseg:
       flashing: off
@@ -61,21 +91,21 @@
       color: 00acf0
       text:  "       "
 
-- duration: 2
+- duration: 3
   segment_displays:
-
     upperseg:
-        color: 00acf0
-        text: " "
-        transition:
-            type: push
-            direction: left
-            text: "JUST SAY NO"
+      color: 00acf0
+      text: " "
+      transition:
+        type: push
+        direction: left
+        text: "JUST SAY NO"
 
     lowerseg:
-        color: 00acf0
-        text: " "
-        transition:
-            type: push
-            direction: left
-            text: "     TO DRUGS"
+      color: 00acf0
+      text: " "
+      transition:
+        type: push
+        direction: left
+        text: "       TO DRUGS"
+
