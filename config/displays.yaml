@@ -216,7 +216,7 @@ slides:
     widgets:
       - type: segment_display_emulator
         name: upperseg
-        # display_type: 8segment
+        display_type: 8seg
         text: "       "
         character_count: 7
         character_slant_angle: 10
@@ -238,7 +238,7 @@ slides:
     widgets:
       - type: segment_display_emulator
         name: lowerseg
-        # display_type: 8segment
+        display_type: 8seg
         text: "       "
         character_count: 7
         character_slant_angle: 10

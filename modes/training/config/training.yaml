@@ -38,7 +38,9 @@ shots:
     training_5:
         switch: s_advance_5
         profile: p_train
-        advance_events: mode_training_started{current_player.ball==1}
+        advance_events: 
+            - mode_training_started{current_player.ball==1}
+            - reset_missions
         show_tokens:
             led: l_advance_5
     training_6:
@@ -70,6 +72,8 @@ shot_groups:
             - ball_started
         disable_events:
             - ball_ending
+        reset_events:
+            - reset_missions
 
 
 #############################################################
