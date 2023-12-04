@@ -1,4 +1,4 @@
-#config_version=5
+#config_version=6
 # STAR WARS 
 
 ###############################################################################################
@@ -75,13 +75,6 @@ slides:
         anchor_x: left
         anchor_y: bottom
         source_display: upperdisplay
-        # effects:
-        #   - type: color_dmd
-        #     dots_x: 256
-        #     dots_y: 64
-        #     dot_size: 1.0
-        #     gain: 1.2
-
 
       - type: display               # lower segment display
         width: 400
@@ -91,12 +84,6 @@ slides:
         anchor_x: left
         anchor_y: bottom
         source_display: lowerdisplay
-        # effects:
-        #   - type: color_dmd
-        #     dots_x: 256
-        #     dots_y: 64
-        #     dot_size: 1.0
-        #     gain: 1.2
 
 
 
@@ -108,12 +95,7 @@ slides:
         anchor_x: left
         anchor_y: bottom
         source_display: bipdisplay
-        # effects:
-        #   - type: color_dmd
-        #     dots_x: 256
-        #     dots_y: 64
-        #     dot_size: 1.0
-        #     gain: 1.2
+
 
       - type: display               # game over display
         width: 100
@@ -146,7 +128,7 @@ slides:
         z: 5
 
   gameover_widget:
-    background_color: 00000000
+    background_color: black
     widgets:
       - type: text
         text: "GAME\nOVER"
@@ -207,7 +189,7 @@ slides:
   
   
   gameover_blank: 
-    background_color: 00000000
+    background_color: black
     widgets: []
 
 
@@ -245,7 +227,7 @@ slides:
         character_spacing: 11
         padding: 12
         segment_width: 0.12
-        segment_off_color: 012030
+        segment_off_color: "012030"
         segment_on_color: 00acf0
         comma_enabled: true
         width: 400
@@ -267,7 +249,7 @@ slides:
         character_spacing: 11
         padding: 12
         segment_width: 0.16
-        segment_off_color: 012030
+        segment_off_color: "012030"
         segment_on_color: 00acf0
         width: 50
         height: 75
