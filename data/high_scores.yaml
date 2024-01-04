@@ -1,4 +1,3 @@
 score:
-- !!python/tuple
-  - AAA
+- - AAA
   - 841780

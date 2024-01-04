@@ -9,19 +9,20 @@ config:
     - coils.yaml
     - switches.yaml
     - displays.yaml
+    - widgets.yaml
 
 hardware:
     # platform: OPP
     # driverboards: gen2
-    platform: virtual_pinball
+    platform: smart_virtual
     segment_displays: virtual
 
-opp:
-    ports: COM9, COM10 # these are the COM ports on the Cobrapin board
-    chains:
-        0: COM9 # the zero board is on COM 9 and the..
-        1: COM10 # one board is on COM 10
-    debug: True
+# opp:
+#     ports: COM9, COM10 # these are the COM ports on the Cobrapin board
+#     chains:
+#         0: COM9 # the zero board is on COM 9 and the..
+#         1: COM10 # one board is on COM 10
+#     debug: True
 
 virtual_platform_start_active_switches:
     - s_trough_1
@@ -30,6 +31,7 @@ virtual_platform_start_active_switches:
     - s_trough_4
     
 modes:
+    - attract
     - base
     - skill_shot
     - bonus_count
@@ -258,25 +260,33 @@ slide_player:
         target: lowerdisplay
     bipsegment:
         target: bipdisplay
-    gameover_widget:
-        target: godisplay
-      
+
   game_starting:
     background_lit:
         target: backglass
-        
-    gameover_blank:
-        target: godisplay
-  
+
   game_ended:
     background:
         target: backglass
 
-    gameover_widget:
-        target: godisplay
 
-
+#############################################################
+# WIDGET PLAYER:  play widgets on events
+#############################################################
     
+widget_player:
+
+    init_done:
+        gameover_widget:
+            slide: background
+
+    game_starting:
+        gameover_widget:
+            action: remove
+
+    game_ended:
+        gameover_widget:
+            slide: background
 
 #############################################################
 # SEGMENT PLAYER:  update score displays

@@ -1,9 +1,9 @@
 events:
-  game_ended: 0
-  game_started: 1
+  game_ended: 1
+  game_started: 2
 player:
   score:
-    average: 42468.50574712642
+    average: 42167.72727272726
     top:
     - 841780
     - 228450
@@ -15,7 +15,7 @@ player:
     - 82800
     - 81600
     - 78020
-    total: 87
+    total: 88
 shots:
   dingwalls: 332
   drop_1: 211
@@ -26,7 +26,7 @@ shots:
   ds_target: 122
   extra_ball: 14
   greedo_drop: 152
-  left_inlane: 400
+  left_inlane: 401
   left_outlane: 95
   left_sling: 236
   leia_1: 87
@@ -34,7 +34,7 @@ shots:
   leia_3: 78
   leia_4: 51
   plans_1: 378
-  plans_2: 398
+  plans_2: 399
   plans_3: 418
   pop_1: 651
   pop_2: 518
@@ -49,19 +49,19 @@ shots:
   skill_m: 16
   skill_r: 6
   skill_shot_l: 103
-  skill_shot_m: 210
+  skill_shot_m: 211
   skill_shot_r: 175
   training_1: 294
-  training_2: 370
-  training_3: 314
-  training_4: 587
+  training_2: 371
+  training_3: 315
+  training_4: 590
   training_5: 607
   training_6: 784
 switches:
   s_advance_1: 296
-  s_advance_2: 374
-  s_advance_3: 316
-  s_advance_4: 593
+  s_advance_2: 375
+  s_advance_3: 317
+  s_advance_4: 596
   s_advance_5: 608
   s_advance_6: 790
   s_dingwalls: 333
@@ -69,9 +69,9 @@ switches:
   s_ds_lock: 86
   s_ds_loop: 465
   s_ds_target: 123
-  s_greedo: 563
+  s_greedo: 565
   s_jam: 0
-  s_l_inlane: 402
+  s_l_inlane: 403
   s_l_outlane: 95
   s_left_flipper: 1962
   s_left_sling: 237
@@ -80,7 +80,7 @@ switches:
   s_leia_3: 79
   s_leia_4: 51
   s_plans_1: 476
-  s_plans_2: 533
+  s_plans_2: 534
   s_plans_3: 484
   s_pop_1: 656
   s_pop_2: 527
@@ -92,11 +92,11 @@ switches:
   s_rescue_4: 241
   s_rescue_5: 242
   s_right_flipper: 2365
-  s_shooter: 1884
+  s_shooter: 1890
   s_spinner: 4033
   s_start: 51
   s_tilt_bob: 50
-  s_trough_1: 590
+  s_trough_1: 593
   s_trough_2: 366
   s_trough_3: 272
   s_trough_4: 200

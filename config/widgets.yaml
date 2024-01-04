@@ -1,0 +1,45 @@
+#config_version=6
+# STAR WARS 
+
+
+###############################################################################################
+#                                       WIDGETS                                                #
+###############################################################################################
+
+widgets:
+  gameover_widget:
+    - type: text
+      text: "GAME\nOVER"
+      color: 30a8c0
+      font_name: deathstar
+      font_size: 30
+      x: 833
+      y: 1145
+      z: 50
+      animations:
+        show_slide:
+          - property: opacity
+            value: 1
+            duration: .65s
+            easing: in_out_expo
+          - property: opacity
+            value: 0
+            duration: .45s
+            easing: in_out_expo
+          - property: opacity
+            value: 1
+            duration: .85s
+            easing: in_out_expo
+          - property: opacity
+            value: 0
+            duration: .25s
+            easing: in_out_expo
+          - property: opacity
+            value: 1
+            duration: .55s
+            easing: in_out_expo
+          - property: opacity
+            value: 0
+            duration: .15s
+            easing: in_out_expo
+            repeat: true

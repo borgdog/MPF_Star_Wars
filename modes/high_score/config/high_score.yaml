@@ -3,8 +3,8 @@
 
 high_score:
   _overwrite: True
-  categories: !!omap
-  - score:
+  categories: 
+    score:
       - CHAMP
   # award_slide_display_time: 2.0s
   defaults:
