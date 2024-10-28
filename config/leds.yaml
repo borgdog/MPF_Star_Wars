@@ -246,3 +246,25 @@ lights:
         number: 60
         default_on_color: f5f5f5
 
+# BACKBOX LIGHTS 
+
+    l_bg_gameover:
+        # type: grb
+        number: 63
+        default_on_color: f5f5f5
+    l_bg_shootagain:
+        # type: grb
+        number: 64
+        default_on_color: f5f5f5
+    l_bg_bip:
+        # type: grb
+        number: 65
+        default_on_color: f5f5f5
+    l_bg_match:
+        # type: grb
+        number: 66
+        default_on_color: f5f5f5
+    l_bg_tilt:
+        # type: grb
+        number: 67
+        default_on_color: f5f5f5

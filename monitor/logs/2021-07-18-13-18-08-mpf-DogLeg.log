@@ -1,5 +1,0 @@
-2021-07-18 13:18:08,574 : INFO : root : Loading config.
-2021-07-18 13:18:08,577 : INFO : YamlMultifileConfigLoader : Machine config file #1: config.yaml
-2021-07-18 13:18:08,578 : INFO : ConfigProcessor : Loading config from file c:\python36\lib\site-packages\mpf\mpfconfig.yaml.
-2021-07-18 13:18:08,641 : INFO : ConfigProcessor : Loading config: c:\python36\lib\site-packages\mpf\mpfconfig.yaml
-2021-07-18 13:18:08,642 : INFO : ConfigProcessor : Loading config from file C:\Users\borgd\OneDrive\Pinball\__Homebrew\MPF-StarWars\MONITOR\config\config.yaml.

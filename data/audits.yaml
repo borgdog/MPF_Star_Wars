@@ -1,9 +1,37 @@
 events:
-  game_ended: 1
-  game_started: 2
+  game_ended: 2
+  game_started: 4
+missing_switches:
+  s_advance_3: 2
+  s_advance_6: 2
+  s_dingwalls: 2
+  s_ds_lock: 2
+  s_ds_loop: 2
+  s_ds_target: 2
+  s_jam: 2
+  s_l_outlane: 2
+  s_left_flipper: 2
+  s_left_sling: 2
+  s_leia_1: 2
+  s_leia_2: 2
+  s_leia_3: 2
+  s_leia_4: 2
+  s_plans_2: 2
+  s_pop_1: 2
+  s_r_outlane: 2
+  s_rescue_1: 2
+  s_rescue_4: 2
+  s_rescue_5: 2
+  s_right_flipper: 2
+  s_spinner: 2
+  s_start: 2
+  s_tilt_bob: 2
+  s_trough_2: 2
+  s_trough_3: 2
+  s_trough_4: 2
 player:
   score:
-    average: 42167.72727272726
+    average: 41929
     top:
     - 841780
     - 228450
@@ -15,63 +43,63 @@ player:
     - 82800
     - 81600
     - 78020
-    total: 88
+    total: 89
 shots:
   dingwalls: 332
   drop_1: 211
-  drop_2: 212
-  drop_3: 224
+  drop_2: 213
+  drop_3: 225
   drop_4: 223
   drop_5: 222
   ds_target: 122
   extra_ball: 14
   greedo_drop: 152
-  left_inlane: 401
+  left_inlane: 402
   left_outlane: 95
   left_sling: 236
   leia_1: 87
   leia_2: 69
   leia_3: 78
   leia_4: 51
-  plans_1: 378
+  plans_1: 380
   plans_2: 399
-  plans_3: 418
+  plans_3: 420
   pop_1: 651
-  pop_2: 518
+  pop_2: 520
   r_drop_1: 5
   r_drop_2: 4
   r_drop_3: 10
   r_drop_4: 15
   r_drop_5: 18
-  right_inlane: 175
+  right_inlane: 176
   right_outlane: 24
   skill_l: 23
   skill_m: 16
   skill_r: 6
-  skill_shot_l: 103
+  skill_shot_l: 105
   skill_shot_m: 211
-  skill_shot_r: 175
-  training_1: 294
-  training_2: 371
+  skill_shot_r: 177
+  training_1: 295
+  training_2: 372
   training_3: 315
-  training_4: 590
-  training_5: 607
+  training_4: 592
+  training_5: 608
   training_6: 784
 switches:
-  s_advance_1: 296
-  s_advance_2: 375
+  s_advance_1: 297
+  s_advance_2: 376
   s_advance_3: 317
-  s_advance_4: 596
-  s_advance_5: 608
+  s_advance_4: 598
+  s_advance_5: 609
   s_advance_6: 790
   s_dingwalls: 333
-  s_droid_lock: 131
+  s_droid_lock: 132
   s_ds_lock: 86
   s_ds_loop: 465
   s_ds_target: 123
-  s_greedo: 565
+  s_greedo: 568
   s_jam: 0
-  s_l_inlane: 403
+  s_l_inlane: 404
   s_l_outlane: 95
   s_left_flipper: 1962
   s_left_sling: 237
@@ -79,24 +107,24 @@ switches:
   s_leia_2: 71
   s_leia_3: 79
   s_leia_4: 51
-  s_plans_1: 476
+  s_plans_1: 478
   s_plans_2: 534
-  s_plans_3: 484
+  s_plans_3: 486
   s_pop_1: 656
-  s_pop_2: 527
-  s_r_inlane: 176
+  s_pop_2: 529
+  s_r_inlane: 177
   s_r_outlane: 24
   s_rescue_1: 219
-  s_rescue_2: 218
-  s_rescue_3: 237
+  s_rescue_2: 219
+  s_rescue_3: 238
   s_rescue_4: 241
   s_rescue_5: 242
   s_right_flipper: 2365
-  s_shooter: 1890
+  s_shooter: 1898
   s_spinner: 4033
   s_start: 51
   s_tilt_bob: 50
-  s_trough_1: 593
+  s_trough_1: 596
   s_trough_2: 366
   s_trough_3: 272
   s_trough_4: 200
