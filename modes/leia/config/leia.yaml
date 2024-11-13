@@ -3,7 +3,8 @@
 
 mode:
     start_events: 
-        - ball_starting
+        - ball_starting{device.shot_groups.storm_bank.common_state == "unlit"}
+        - storm_bank_unlit_complete
        
     priority: 200
 
